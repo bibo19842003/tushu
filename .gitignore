@@ -1,0 +1,10 @@
+test/
+*.pyc
+*.bak
+db.sqlite3
+*~
+*.swp
+*/migrations/
+static/log/
+media/
+db/
