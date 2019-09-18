@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block inout_query_block %}<li class="active">{% endblock %}
+{% block head_block %}In and Out Query{% endblock %}
+
+{% block body_block %}
+
+<form action="" method="get">
+
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-hover">
+    
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th>电话</th>
+      <th>书名</th>
+      <th>借出时间</th>
+      <th>操作人出</th>
+      <th>归还时间</th>
+      <th>操作人还</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      {% for inout in inout %}
+      <tr class="info">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ inout.phone }}</td>
+        <td>{{ inout.name }}</td>
+        <td>{{ inout.outtime }}</td>
+        <td>{{ inout.handlerout }}</td>
+        <td>{{ inout.intime }}</td>
+        <td>{{ inout.handlerin }}</td>
+        <td>{{ inout.remark }}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+{% endblock %}

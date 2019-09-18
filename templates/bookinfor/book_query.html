@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+
+{% block body_block %}
+
+<form action="" method="get">
+
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-hover">
+    
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th>书名</th>
+      <th>套装名称</th>
+      <th>系列名称</th>
+      <th>出版社</th>
+      <th>大小</th>
+      <th>版次</th>
+      <th>定价</th>
+      <th>著</th>
+      <th>绘</th>
+      <th>翻译</th>
+      <th>套装</th>
+      <th>装订</th>
+      <th>类别</th>
+      <th>拼音</th>
+      <th>每套几本</th>
+      <th>总套数</th>
+      <th>总本数</th>
+      <th>借出数量(套)</th>
+      <th>库存数量(套)</th>
+      <th>存放位置</th>
+      <th>语言</th>
+      <th>购买价格</th>
+      <th>备注1</th>
+      <th>备注2</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      {% for bookinfor in bookinfor %}
+      <tr class="info">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ bookinfor.book_name }}</td>
+        <td>{{ bookinfor.book_set_name }}</td>
+        <td>{{ bookinfor.series_name }}</td>
+        <td>{{ bookinfor.publisher }}</td>
+        <td>{{ bookinfor.size }}</td>
+        <td>{{ bookinfor.edition }}</td>
+        <td>{{ bookinfor.price }}</td>
+        <td>{{ bookinfor.author_text}}</td>
+        <td>{{ bookinfor.author_picture }}</td>
+        <td>{{ bookinfor.translation }}</td>
+        <td>{{ bookinfor.setset }}</td>
+        <td>{{ bookinfor.hardcover }}</td>
+        <td>{{ bookinfor.sortname }}</td>
+        <td>{{ bookinfor.pinyin }}</td>
+        <td>{{ bookinfor.per_amount }}</td>
+        <td>{{ bookinfor.set_amount }}</td>
+        <td>{{ bookinfor.book_amount }}</td>
+        <td>{{ bookinfor.borrow_amount }}</td>
+        <td>{{ bookinfor.remain_amount}}</td>
+        <td>{{ bookinfor.position }}</td>
+        <td>{{ bookinfor.language }}</td>
+        <td>{{ bookinfor.true_price }}</td>
+        <td>{{ bookinfor.remark1 }}</td>
+        <td>{{ bookinfor.remark2 }}</td>
+
+
+      </tr>
+      {% endfor %}
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+{% endblock %}

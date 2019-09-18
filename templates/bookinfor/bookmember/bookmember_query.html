@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block member_query_block %}<li class="active">{% endblock %}
+{% block head_block %}Member Query{% endblock %}
+
+{% block body_block %}
+
+<form action="" method="get">
+
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-hover">
+    
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th>电话</th>
+      <th>姓名</th>
+      <th>社交帐号</th>
+      <th>邮箱</th>
+      <th>注册时间</th>
+      <th>到期时间</th>
+      <th>会员卡号</th>
+      <th>域额</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      {% for member in member %}
+      <tr class="info">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ member.phone }}</td>
+        <td>{{ member.name }}</td>
+        <td>{{ member.account }}</td>
+        <td>{{ member.mail }}</td>
+        <td>{{ member.begin }}</td>
+        <td>{{ member.expir }}</td>
+        <td>{{ member.card }}</td>
+        <td>{{ member.remain }}</td>
+        <td>{{ member.remark }}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+{% endblock %}

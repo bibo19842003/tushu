@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block deal_query_block %}<li class="active">{% endblock %}
+{% block head_block %}Deal Query{% endblock %}
+
+{% block body_block %}
+
+<form action="" method="get">
+
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-hover">
+    
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th>电话</th>
+      <th>消费时间</th>
+      <th>消费金额</th>
+      <th>操作人</th>
+      <th>交易类型</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      {% for consume in consume %}
+      <tr class="info">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ consume.phone }}</td>
+        <td>{{ consume.consumetime }}</td>
+        <td>{{ consume.money }}</td>
+        <td>{{ consume.handler }}</td>
+        <td>{{ consume.sort }}</td>
+        <td>{{ consume.remark }}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+{% endblock %}
