@@ -12,9 +12,13 @@ urlpatterns = [
     path('member_manage/', views.member_manage),
     path('member_new', views.member_new),
     path('member_modify/', views.member_modify),
-    path('member_log', views.member_log),
+    path('member_log/', views.member_log),
 
     path('deal_query/', views.deal_query),
 
     path('inout_query/', views.inout_query),
+    path('inout_manage/', views.inout_manage),
+    path('inout_new', views.inout_new),
+    path('inout_modify/', views.inout_modify),
+    path('inout_log/', views.inout_log),
 ]

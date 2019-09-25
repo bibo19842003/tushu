@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block inout_new_block %}<li class="active">{% endblock %}
+{% block head_block %}In and Out New{% endblock %}
+
+{% block body_block %}
+
+<form class="form-horizontal" role="form" action="" method="post">
+
+  {% csrf_token %}
+
+  <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">电话</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="name" class="col-sm-2 control-label">书名</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="name" placeholder="14只老鼠大搬家">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="zcbm" class="col-sm-2 control-label">资产编码</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="zcbm" placeholder="暂不用填写">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="remark" class="col-sm-2 control-label">备注</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="remark" placeholder="备注">
+      </div>
+   </div>
+
+   <hr class="hr" />
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <input id="waiting" type="submit" class="btn btn-default" value="提交" data-loading-text="提交中......">
+    </div>
+  </div>
+
+</form>
+
+
+
+{% endblock %}
