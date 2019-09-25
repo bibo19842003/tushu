@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block member_manage_block %}<li class="active">{% endblock %}
+{% block head_block %}Member Manage{% endblock %}
+
+{% block body_block %}
+
+<form action="" method="get">
+
+  <div class="form-group">
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号，如 13912345678">
+      </div>
+  </div>
+
+
+  <div class="btn-group">
+    <input type="submit" class="btn btn-default" name="querydata" value="搜索"></input>
+    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#new">新增</button>
+  </div>
+
+
+<hr class="hr" />
+
+
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-hover">
+
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th>电话</th>
+      <th>姓名</th>
+      <th>社交帐号</th>
+      <th>邮箱</th>
+      <th>注册时间</th>
+      <th>到期时间</th>
+      <th>会员卡号</th>
+      <th>余额</th>
+      <th>创建人</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      {% for member in member %}
+      <tr class="info">
+        <td>{{ forloop.counter }}</td>
+        <td id="phonex" >
+             <a href="/member_modify/?phone={{ member.phone }}&cx=yinchang" target="_blank">{{ member.phone }}</a>
+        </td>
+        <td id="namex">{{ member.name }}</td>
+        <td id="accountx">{{ member.account }}</td>
+        <td id="mailx">{{ member.mail }}</td>
+        <td id="beginx">{{ member.begin }}</td>
+        <td id="expirx">{{ member.expir }}</td>
+        <td id="cardx">{{ member.card }}</td>
+        <td id="remainx">{{ member.remain }}</td>
+        <td id="handlerx">{{ member.handler }}</td>
+        <td id="remarkx">{{ member.remark }}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+
+
+<!-- 模态框（Modal）新增 -->
+<div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="phonen">电话</label>
+                        <input type="text" class="form-control" name="phonen" id="phonen" placeholder="必须填写手机号，如 13912345678">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="membernamen">姓名</label>
+                       <input type="text" class="form-control" name="membernamen" id="membernamen" placeholder="张三">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="accountn">社交帐号</label>
+                       <input type="text" class="form-control" name="accountn" id="accountn" placeholder="wx_123456">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="mailn">邮箱</label>
+                       <input type="text" class="form-control" name="mailn" id="mailn" placeholder="tushu@163.com">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="expirn">到期时间</label>
+                       <input type="date" name="expirn" id="expirn"/>
+                    </div>
+
+                    <div class="form-group">
+                       <label for="cardn">会员卡号</label>
+                       <input type="text" class="form-control" name="cardn" id="cardn" placeholder="0001">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="remarkn">备注</label>
+                       <input type="text" class="form-control" name="remarkn" id="remarkn" placeholder="备注">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                     <input type="button" data-dissmiss="modal" onclick="newdata()" class="btn btn-primary" value="提交">
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+//提交更改 新增
+function newdata() {
+	//获取模态框数据
+	var phone = $('#phonen').val();
+	var membername = $('#membernamen').val();
+	var account = $('#accountn').val();
+	var mail = $('#mailn').val();
+	var expir = $('#expirn').val();
+	var card = $('#cardn').val();
+	var remark = $('#remarkn').val();
+
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'},
+        });
+
+	$.ajax({
+		type: "post",
+		url: "/member_new",
+// http://127.0.0.1:8888/member_new/?phone=12345678916&membername=88&account=&mail=&expir=2019-09-14&card=&remark=
+//		data: "phone=" + "12345678923" + "&membername=" + membername + "&account=&mail=&expir=2019-09-22&card=&remark=",
+//		data: "phone=" + phone + "&membername=" + membername + "&account=" + account + "&mail=" + mail + "&expir=" + expir + "&card=" + card + "&remark=" + remark,
+
+                data:{"phone":phone,
+                      "membername":membername,
+                      "account":account,
+                      "mail":mail,
+                      "expir":expir,
+                      "card":card,
+                      "remark":remark,
+                      "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
+                      },
+
+		success: function(result) {
+			location.reload();
+		}
+	});
+}
+
+
+
+// https://blog.csdn.net/baalhuo/article/details/51178154  </br>
+// https://blog.csdn.net/ZJX_959/article/details/90080272  </br>
+// https://blog.csdn.net/weixin_42535823/article/details/80873787  </br>
+// https://www.cnblogs.com/gcgc/p/11176389.html  </br>
+// https://blog.csdn.net/Strive_0902/article/details/99705332  </br>
+
+</script>
+
+
+
+{% endblock %}

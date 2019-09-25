@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block member_new_block %}<li class="active">{% endblock %}
+{% block head_block %}Member New Successful!!! {% endblock %}
+
+{% block body_block %}
+
+<form class="form-horizontal" role="form" action="" method="post">
+
+  {% csrf_token %}
+
+  <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">电话</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="membername" class="col-sm-2 control-label">姓名</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="membername" placeholder="张三">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="account" class="col-sm-2 control-label">社交帐号</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="account" placeholder="wx_123456">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="mail" class="col-sm-2 control-label">邮箱</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="mail" placeholder="tushu@163.com">
+      </div>
+   </div>
+
+  <div class="form-group">
+      <label for="expir" class="col-sm-2 control-label">到期时间</label>
+      <div class="col-sm-3">
+         <input type="date" name="expir"/>
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="card" class="col-sm-2 control-label">会员卡号</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="card" placeholder="0001">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="remark" class="col-sm-2 control-label">备注</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="remark" placeholder="备注">
+      </div>
+   </div>
+
+   <hr class="hr" />
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <input id="waiting" type="submit" class="btn btn-default" value="提交" data-loading-text="提交中......">
+    </div>
+  </div>
+
+</form>
+
+
+
+{% endblock %}

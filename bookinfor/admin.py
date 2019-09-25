@@ -25,7 +25,7 @@ class BookinforAdmin(admin.ModelAdmin):
   list_display = ('book_name', 'book_set_name', 'series_name', 'publisher', 'size', 'edition', 'price', 'author_text', 'author_picture', 'translation', 'setset', 'hardcover', 'borrow_amount', 'pinyin', 'per_amount', 'set_amount', 'book_amount', 'borrow_amount', 'remain_amount', 'position', 'language', 'true_price', 'remark1', 'remark2',)
 
 class BookmemberAdmin(admin.ModelAdmin):
-  list_display = ('phone', 'name', 'account', 'mail', 'begin','expir', 'card', 'remain', 'remark',)
+  list_display = ('phone', 'name', 'account', 'mail', 'begin','expir', 'card', 'remain', 'handler', 'remark',)
 
 class HealthAdmin(admin.ModelAdmin):
   list_display = ('status',)
@@ -34,7 +34,7 @@ class ConsumeAdmin(admin.ModelAdmin):
   list_display = ('phone', 'consumetime', 'money', 'handler', 'sort', 'remark',)
 
 class InoutrecordAdmin(admin.ModelAdmin):
-  list_display = ('phone', 'outtime', 'intime', 'name', 'handlerout', 'handlerin', 'remark',)
+  list_display = ('phone', 'outtime', 'intime', 'name', 'zcbm', 'handlerout', 'handlerin', 'remark',)
 
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Bookseries, BookseriesAdmin)

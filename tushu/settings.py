@@ -25,7 +25,7 @@ SECRET_KEY = 's2ld_x8x-03x&os-nd58_d8u8c-i_ahs9x313uryl_^w%5-+@n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tushu',
     'bookinfor',
+    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [

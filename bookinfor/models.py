@@ -93,6 +93,7 @@ class Bookmember(models.Model):
   expir = models.DateTimeField(null=True, blank=True, verbose_name='过期时间')
   card = models.CharField(max_length=20, null=True, blank=True, verbose_name='卡号')
   remain = models.CharField(max_length=20, null=True, blank=True, verbose_name='剩余金额')
+  handler = models.CharField(max_length=10, null=True, blank=True, verbose_name='创建人')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')
 
 
@@ -127,6 +128,7 @@ class Inoutrecord(models.Model):
   outtime = models.DateTimeField(null=True, blank=True, verbose_name='借出时间', auto_now_add = True)
   intime = models.DateTimeField(null=True, blank=True, verbose_name='归还时间')
   name = models.CharField(max_length=20, null=True, blank=True, verbose_name='书名')
+  zcbm = models.CharField(max_length=20, null=True, blank=True, verbose_name='资产编码')
   handlerout = models.CharField(max_length=20, null=True, blank=True, verbose_name='操作人出')
   handlerin = models.CharField(max_length=20, null=True, blank=True, verbose_name='操作人还')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')

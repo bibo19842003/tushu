@@ -6,10 +6,24 @@
 
 <form action="" method="get">
 
+  <div class="form-group">
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号，如 13912345678">
+      </div>
+   </div>
+
+
+  <div class="btn-group">
+    <input type="submit" class="btn btn-default" name="querydata" value="搜索"></input>
+  </div>
+
+
+<hr class="hr" />
+
 
 <div class="table-responsive">
   <table class="table table-condensed table-striped table-hover">
-    
+
     <thead>
     <tr>
       <th>序号</th>
@@ -20,7 +34,8 @@
       <th>注册时间</th>
       <th>到期时间</th>
       <th>会员卡号</th>
-      <th>域额</th>
+      <th>余额</th>
+      <th>创建人</th>
       <th>备注</th>
     </tr>
     </thead>
@@ -38,6 +53,7 @@
         <td>{{ member.expir }}</td>
         <td>{{ member.card }}</td>
         <td>{{ member.remain }}</td>
+        <td>{{ member.handler }}</td>
         <td>{{ member.remark }}</td>
       </tr>
       {% endfor %}
