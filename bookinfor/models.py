@@ -19,20 +19,6 @@ class Bookseries(models.Model):
     return self.name
 
 
-class Setproperty(models.Model):
-  setset = models.CharField(max_length=10, verbose_name='套装')
-
-  def __str__(self):
-    return self.setset
-
-
-class Binding(models.Model):
-  style = models.CharField(max_length=10, verbose_name='装订')
-
-  def __str__(self):
-    return self.style
-
-
 class Sort(models.Model):
   name = models.CharField(max_length=50, verbose_name='类别')
 
@@ -64,8 +50,6 @@ class Bookinfor(models.Model):
   hardcover = models.CharField(max_length=10, null=True, blank=True, verbose_name='装订', choices=(('jingz','精装'),('jianz','简装')))
   sortname = models.ForeignKey(Sort, on_delete=models.CASCADE, null=True, blank=True, verbose_name='类别')
   pinyin = models.CharField(max_length=10, null=True, blank=True, verbose_name='拼音')
-
-  sort = models.CharField(max_length=20, null=True, blank=True, verbose_name='类型', choices=(('cz','充值'),('xf','消费')))
 
   per_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='每套几本')
   set_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='总套数')
@@ -99,13 +83,6 @@ class Bookmember(models.Model):
 
   def __str__(self):
     return self.phone
-
-
-class Health(models.Model):
-  status = models.CharField(max_length=10, verbose_name='健康状态')
-
-  def __str__(self):
-    return self.status
 
 
 

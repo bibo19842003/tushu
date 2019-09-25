@@ -7,7 +7,17 @@ import time
 import os
 
 
-# Create your views here.
+# --- index begin ---
+
+def index(request):
+  return render(request, 'index.html')
+#  return HttpResponse("xxxxxxxxxxxxxxxxxxxxxxxxx")
+
+# --- index end ---
+
+
+
+# --- member begin ---
 
 def memberlogfile(runuser, phone, membername, account, mail, expir, card, remark):
   t = time.strftime("%Y-%m-%d-%H-%M-%S")
@@ -21,30 +31,7 @@ def memberlogfile(runuser, phone, membername, account, mail, expir, card, remark
 
 
 
-
-def index(request):
-  return render(request, 'index.html')
-#  return HttpResponse("xxxxxxxxxxxxxxxxxxxxxxxxx")
-
-# @login_required
-def book_query(request):
-
-  bookinfor = Bookinfor.objects.all()
-
-  return render(request, 'bookinfor/bookinfor/book_query.html', {'bookinfor': bookinfor,})
-
-
-
-
-def deal_query(request):
-
-  consume = Consume.objects.all()
-
-  return render(request, 'bookinfor/consume/deal_query.html', {'consume': consume,})
-
-
-
-
+@login_required
 def member_query(request):
 
   if request.GET.get('phone') == None:
@@ -58,13 +45,7 @@ def member_query(request):
 
 
 
-def inout_query(request):
-
-  inout = Inoutrecord.objects.all()
-
-  return render(request, 'bookinfor/inoutrecord/inout_query.html', {'inout': inout,})
-
-
+@login_required
 def member_manage(request):
 
     if request.GET.get('phone') == None:
@@ -135,7 +116,6 @@ def member_modify(request):
 
 
 
-
 def member_log(request):
 
   BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,5 +124,75 @@ def member_log(request):
   filename.sort(reverse=True)
 
   return render(request, 'bookinfor/bookmember/member_log.html', {'filename': filename,})
+
+
+# --- member end ---
+
+
+
+# --- book begin ---
+
+def book_query(request):
+
+  if request.GET.get('bookname') == None:
+      return render(request, 'bookinfor/bookinfor/book_query.html')
+
+  bookname = request.GET.get('bookname')
+
+  bookinfor = Bookinfor.objects.filter(book_name__icontains=bookname)
+
+  return render(request, 'bookinfor/bookinfor/book_query.html', {'bookinfor': bookinfor,})
+
+
+# --- book end ---
+
+
+
+
+# --- consume begin ---
+
+@login_required
+def deal_query(request):
+
+  consume = Consume.objects.all()
+
+  return render(request, 'bookinfor/consume/deal_query.html', {'consume': consume,})
+
+
+
+
+
+
+
+
+
+
+
+# --- consume end ---
+
+
+
+
+
+# --- in out begin ---
+
+def inout_query(request):
+
+  inout = Inoutrecord.objects.all()
+
+  return render(request, 'bookinfor/inoutrecord/inout_query.html', {'inout': inout,})
+
+
+
+
+
+
+
+
+
+
+
+
+# --- in out end ---
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Bookseries, Setproperty, Binding, Sort, Publish, Bookinfor, Bookmember, Health, Consume, Inoutrecord
+from .models import Author, Bookseries, Sort, Publish, Bookinfor, Bookmember, Consume, Inoutrecord
 
 
 class AuthorAdmin(admin.ModelAdmin):
@@ -8,12 +8,6 @@ class AuthorAdmin(admin.ModelAdmin):
 
 class BookseriesAdmin(admin.ModelAdmin):
   list_display = ('name',)
-
-class SetpropertyAdmin(admin.ModelAdmin):
-  list_display = ('setset',)
-
-class BindingAdmin(admin.ModelAdmin):
-  list_display = ('style',)
 
 class SortAdmin(admin.ModelAdmin):
   list_display = ('name',)
@@ -27,9 +21,6 @@ class BookinforAdmin(admin.ModelAdmin):
 class BookmemberAdmin(admin.ModelAdmin):
   list_display = ('phone', 'name', 'account', 'mail', 'begin','expir', 'card', 'remain', 'handler', 'remark',)
 
-class HealthAdmin(admin.ModelAdmin):
-  list_display = ('status',)
-
 class ConsumeAdmin(admin.ModelAdmin):
   list_display = ('phone', 'consumetime', 'money', 'handler', 'sort', 'remark',)
 
@@ -38,13 +29,10 @@ class InoutrecordAdmin(admin.ModelAdmin):
 
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Bookseries, BookseriesAdmin)
-admin.site.register(Setproperty, SetpropertyAdmin)
-admin.site.register(Binding, BindingAdmin)
 admin.site.register(Sort, SortAdmin)
 admin.site.register(Publish, PublishAdmin)
 admin.site.register(Bookinfor, BookinforAdmin)
 admin.site.register(Bookmember, BookmemberAdmin)
-admin.site.register(Health, HealthAdmin)
 admin.site.register(Consume, ConsumeAdmin)
 admin.site.register(Inoutrecord, InoutrecordAdmin)
 
