@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block member_log_block %}<li class="active">{% endblock %}
+{% block head_block %}Member Log{% endblock %}
+
+{% block body_block %}
+
+    {% for filename in filename %}
+
+            <a href="/static/log/member/{{ filename }}" target="_blank">{{ filename }}</a>  </br>
+
+    {% endfor %}
+
+
+
+
+{% endblock %}

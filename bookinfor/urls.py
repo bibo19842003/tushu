@@ -12,5 +12,5 @@ urlpatterns = [
     path('member_new', views.member_new),
     path('member_modify/', views.member_modify),
     path('inout_query/', views.inout_query),
-    path('filldata/', views.filldata),
+    path('member_log', views.member_log),
 ]

@@ -4,9 +4,23 @@ from django.template import RequestContext, loader, Context
 from django.contrib.auth.decorators import login_required
 from bookinfor.models import Bookinfor, Consume, Bookmember, Inoutrecord
 import time
+import os
 
 
 # Create your views here.
+
+def memberlogfile(runuser, phone, membername, account, mail, expir, card, remark):
+  t = time.strftime("%Y-%m-%d-%H-%M-%S")
+  filename = "member-" + t + "-" + runuser + "-" + phone + ".txt"
+  BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+  memberlog = os.path.join(BASE_DIR, 'static/log/member', filename)
+  with open(memberlog, 'a+') as f:
+    f.write(time.strftime("%Y-%m-%d %H:%M:%S"))
+    f.write('\n')
+    f.write(' runuser: %s \n phone: %s \n membername: %s \n account: %s \n mail: %s \n expir: %s \n card: %s \n remark: %s \n' %(runuser, phone, membername, account, mail, expir, card, remark))
+
+
+
 
 def index(request):
   return render(request, 'index.html')
@@ -113,22 +127,22 @@ def member_modify(request):
 
     Bookmember.objects.filter(phone=phone).update(name=membername, account=account, mail=mail, expir=expir, card=card, handler=runuser, remark=remark)
 
-    member = Bookmember.objects.filter(phone__icontains=phone)
+    member = Bookmember.objects.filter(phone=phone)
+
+    memberlogfile(runuser, phone, membername, account, mail, expir, card, remark)
 
     return render(request, 'bookinfor/bookmember/member_modify_ok.html', {'member': member,})
 
 
 
 
-def filldata(request):    
-    if request.is_ajax():  # filldata        
-        onlineproblem_id= int(request.POST['IIID'])        
-        content = OnlineProblem.objects.filter(id=onlineproblem_id)  
-        #链接onlineproblem数据库，且以id=onlineproblem_id的值进行过滤      
-        result = serializers.serialize("json", content)
-        #获取所有的数据库数据
-        #返回        
-        return JsonResponse(result, safe=False)
+def member_log(request):
 
+  BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+  memberlogdir = os.path.join(BASE_DIR, 'static/log/member')
+  filename = os.listdir(memberlogdir)
+  filename.sort(reverse=True)
+
+  return render(request, 'bookinfor/bookmember/member_log.html', {'filename': filename,})
 
 
