@@ -101,7 +101,7 @@
 
                     <div class="form-group">
                        <label for="expirn">到期时间</label>
-                       <input type="date" name="expirn" id="expirn"/>
+                       <input type="date" name="expirn" id="expirn" value="2010-01-01"/>
                     </div>
 
                     <div class="form-group">
@@ -157,6 +157,7 @@ function newdata() {
                       "expir":expir,
                       "card":card,
                       "remark":remark,
+                      "remain":'0',
                       "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
                       },
 

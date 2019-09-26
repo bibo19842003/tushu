@@ -53,7 +53,6 @@ def member_manage(request):
 
     phone = request.GET.get('phone')
     member = Bookmember.objects.filter(phone__icontains=phone)
-    print('888888888888')
 
     return render(request, 'bookinfor/bookmember/member_manage.html', {'member': member,})
 
@@ -75,10 +74,9 @@ def member_new(request):
     expir = request.POST.get('expir')
     card = request.POST.get('card')
     remark = request.POST.get('remark')
+    remain = '0'
 
-    print('1111110', request.POST.get('expir'), '22222')
-
-    newmember = Bookmember(phone=phone, name=membername, account=account, mail=mail, expir=expir, card=card, handler=runuser, remark=remark)
+    newmember = Bookmember(phone=phone, name=membername, account=account, mail=mail, expir=expir, card=card, handler=runuser, remark=remark, remain=remain)
     newmember.save()
 
     return render(request, 'bookinfor/bookmember/member_new_ok.html')
@@ -154,17 +152,62 @@ def book_query(request):
 @login_required
 def deal_query(request):
 
-  consume = Consume.objects.all()
+  if request.GET.get('phone') == None:
+      return render(request, 'bookinfor/consume/deal_query.html')
+
+  phone = request.GET.get('phone')
+
+  consume = Consume.objects.filter(phone__icontains=phone)
 
   return render(request, 'bookinfor/consume/deal_query.html', {'consume': consume,})
 
 
+@login_required
+def deal_new(request):
+    if request.POST.get('phone') == None:
+      return render(request, 'bookinfor/consume/deal_new.html')
+
+    if request.POST.get('phone') =="" or request.GET.get('name') == "" or request.GET.get('outtime') == "":
+      return render(request, 'bookinfor/consume/deal_new.html')
+
+    phone = request.POST.get('phone')
+    money = request.POST.get('money')
+    sort = request.POST.get('sort')
+    over = request.POST.get('over')
+    handler =str(request.user)
+    deposit = request.POST.get('deposit')
+    remark = request.POST.get('remark')
+
+    member = Bookmember.objects.values("remain").filter(phone=phone)
+    if sort == "cz":
+      remiannow = int(member[0]['remain']) + int(money)
+      sort = "临时充值"
+
+    if sort == "xf":
+      remiannow = int(member[0]['remain']) - int(money)
+      sort = "消费"
+
+    if sort == "hy":
+      remiannow = int(member[0]['remain'])
+      sort = "会员"
+
+    Bookmember.objects.filter(phone=phone).update(remain=str(remiannow))
+    consume = Consume(phone=phone, money=money, sort=sort, over=str(remiannow), handler=handler, deposit=deposit, remark=remark)
+    consume.save()
+
+    return render(request, 'bookinfor/consume/deal_new_ok.html')
 
 
+@login_required
+def deal_manage(request):
 
+    if request.GET.get('phone') == None:
+      return render(request, 'bookinfor/consume/deal_manage.html')
 
+    phone = request.GET.get('phone')
+    consume = Consume.objects.filter(phone__icontains=phone)
 
-
+    return render(request, 'bookinfor/consume/deal_manage.html', {'consume': consume,})
 
 
 
@@ -209,8 +252,8 @@ def inout_manage(request):
       return render(request, 'bookinfor/inoutrecord/inout_manage.html')
 
     phone = request.GET.get('phone')
-    inout = Inoutrecord.objects.filter(phone__icontains=phone)
-    print('888888888888')
+    name = request.GET.get('name')
+    inout = Inoutrecord.objects.filter(phone__icontains=phone).filter(name__icontains=name).order_by('intime')
 
     return render(request, 'bookinfor/inoutrecord/inout_manage.html', {'inout': inout,})
 
@@ -246,7 +289,9 @@ def inout_modify(request):
 
   if "cx" in request.GET:
     phone = request.GET.get('phone')
-    inout = Inoutrecord.objects.filter(phone__icontains=phone)
+    name = request.GET.get('name')
+    inout = Inoutrecord.objects.filter(phone__icontains=phone).filter(name__icontains=name)
+
     return render(request, 'bookinfor/inoutrecord/inout_modify.html', {'inout': inout,})
 
   if "gx" in request.GET:
@@ -256,7 +301,7 @@ def inout_modify(request):
     phone = request.GET.get('phone')
     name = request.GET.get('name')
 
-    Inoutrecord.objects.filter(phone=phone).update(handlerin=handlerin, intime=intime, remark=remark)
+    Inoutrecord.objects.filter(phone=phone).filter(name=name).update(handlerin=handlerin, intime=intime, remark=remark)
 
     inout = Inoutrecord.objects.filter(phone=phone).filter(name=name)
 

@@ -1,4 +1,5 @@
 from django.db import models
+import time
 
 class Author(models.Model):
   chn_name = models.CharField(max_length=20, null=True, blank=True, verbose_name='中文名称')
@@ -74,24 +75,27 @@ class Bookmember(models.Model):
   account = models.CharField(max_length=20, null=True, blank=True, verbose_name='社交帐号')
   mail = models.CharField(max_length=20, null=True, blank=True, verbose_name='邮箱')
   begin = models.DateTimeField(null=True, blank=True, verbose_name='注册时间', auto_now_add = True)
-  expir = models.DateTimeField(null=True, blank=True, verbose_name='过期时间')
+  expir = models.DateTimeField(null=True, blank=True, verbose_name='过期时间', auto_now = False)
   card = models.CharField(max_length=20, null=True, blank=True, verbose_name='卡号')
-  remain = models.CharField(max_length=20, null=True, blank=True, verbose_name='剩余金额')
+  remain = models.CharField(max_length=20, null=True, blank=True, verbose_name='剩余金额', default="0")
   handler = models.CharField(max_length=10, null=True, blank=True, verbose_name='创建人')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')
 
 
   def __str__(self):
     return self.phone
+#    return '%s %s' % (self.phone, self.remain)
 
 
 
 class Consume(models.Model):
-  phone = models.CharField(primary_key=True, max_length=20, verbose_name='电话')
+  phone = models.CharField(max_length=20, verbose_name='电话')
   consumetime = models.DateTimeField(null=True, blank=True, verbose_name='消费时间', auto_now_add = True)
   money = models.CharField(max_length=20, null=True, blank=True, verbose_name='消费金额')
   handler = models.CharField(max_length=20, null=True, blank=True, verbose_name='操作人')
   sort = models.CharField(max_length=20, null=True, blank=True, verbose_name='类型', choices=(('cz','充值'),('xf','消费')))
+  over = models.CharField(max_length=20, null=True, blank=True, verbose_name='余额')
+  deposit = models.CharField(max_length=20, null=True, blank=True, verbose_name='押金')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')
 
 
@@ -101,7 +105,7 @@ class Consume(models.Model):
 
 
 class Inoutrecord(models.Model):
-  phone = models.CharField(primary_key=True, max_length=20, verbose_name='电话')
+  phone = models.CharField(max_length=20, verbose_name='电话')
   outtime = models.DateTimeField(null=True, blank=True, verbose_name='借出时间', auto_now_add = True)
   intime = models.DateTimeField(null=True, blank=True, verbose_name='归还时间')
   name = models.CharField(max_length=20, null=True, blank=True, verbose_name='书名')

@@ -1,26 +1,24 @@
 {% extends 'base.html' %}
-{% block inout_manage_block %}<li class="active">{% endblock %}
-{% block head_block %}In and Out Manage{% endblock %}
+{% block deal_manage_block %}<li class="active">{% endblock %}
+{% block head_block %}Deal Manage{% endblock %}
 
 {% block body_block %}
 
 <form action="" method="get">
 
   <div class="form-group">
-      <div class="col-sm-2">
-         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号">
-      </div>
-  </div>
-
-  <div class="form-group">
-      <div class="col-sm-2">
-         <input type="text" class="form-control" name="name" placeholder="请输入要搜索的书名">
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号，如 13912345678">
       </div>
   </div>
 
   <div class="btn-group">
     <input type="submit" class="btn btn-default" name="querydata" value="搜索"></input>
-    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#new">新增</button>
+<!--    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#new">新增</button> -->
+    <a href="/member_new" target="_blank">
+        <button class="btn btn-default" type="button" >新增</button>
+    </a>
+
   </div>
 
 
@@ -34,31 +32,29 @@
     <tr>
       <th>序号</th>
       <th>电话</th>
-      <th>书名</th>
-      <th>资产编码</th>
-      <th>借出时间</th>
-      <th>操作人出</th>
-      <th>归还时间</th>
-      <th>操作人还</th>
+      <th>消费时间</th>
+      <th>消费金额</th>
+      <th>操作人</th>
+      <th>交易类型</th>
+      <th>余额</th>
+      <th>押金</th>
       <th>备注</th>
     </tr>
     </thead>
 
     <tbody>
     <tr>
-      {% for inout in inout %}
+      {% for consume in consume %}
       <tr class="info">
         <td>{{ forloop.counter }}</td>
-        <td id="phonex" >
-             <a href="/inout_modify/?phone={{ inout.phone }}&name={{ inout.name }}&cx=yinchang" target="_blank">{{ inout.phone }}</a>
-        </td>
-        <td id="namex">{{ inout.name }}</td>
-        <td id="zcbmx">{{ inout.zcbm }}</td>
-        <td id="outtimex">{{ inout.outtime }}</td>
-        <td id="handleroutx">{{ inout.handlerout }}</td>
-        <td id="intimex">{{ inout.intime }}</td>
-        <td id="handlerin">{{ inout.handlerin }}</td>
-        <td id="remarkx">{{ inout.remark }}</td>
+        <td id="phonex">{{ consume.phone }}</td>
+        <td id="consumetimex">{{ consume.consumetime }}</td>
+        <td id="moneyx">{{ consume.money }}</td>
+        <td id="handlerx">{{ consume.handler }}</td>
+        <td id="sortx">{{ consume.sort }}</td>
+        <td id="overx">{{ consume.over }}</td>
+        <td id="depositx">{{ consume.deposit }}</td>
+        <td id="remarkx">{{ consume.remark }}</td>
       </tr>
       {% endfor %}
     </tr>
@@ -86,13 +82,22 @@
    </div>
 
    <div class="form-group">
-      <label for="namen">书名</label>
-         <input type="text" class="form-control" name="namen" id="namen" placeholder="14只老鼠大搬家">
+      <label for="moneyn">消费金额</label>
+         <input type="text" class="form-control" name="moneyn" id="moneyn" placeholder="1000">
    </div>
 
    <div class="form-group">
-      <label for="zcbmn">资产编码</label>
-         <input type="text" class="form-control" name="zcbmn" id="zcbmn" placeholder="暂不用填写">
+      <label for="sortn" >类型</label>
+         <select class="selectpicker" name="sort">
+             <option value="hy">会员</option>
+             <option value="cz">临时充值</option>
+             <option value="xf">消费</option>                  
+         </select>
+   </div>
+
+   <div class="form-group">
+      <label for="depositn">押金</label>
+         <input type="text" class="form-control" name="depositn" id="depositn" placeholder="1000">
    </div>
 
 
@@ -119,8 +124,9 @@
 function newdata() {
 	//获取模态框数据
 	var phone = $('#phonen').val();
-	var name = $('#namen').val();
-	var zcbm = $('#zcbmn').val();
+	var money = $('#moneyn').val();
+	var sortnn = $('#sortn').val();
+	var deposit = $('#depositn').val();
 	var remark = $('#remarkn').val();
 
         $.ajaxSetup({
@@ -129,10 +135,11 @@ function newdata() {
 
 	$.ajax({
 		type: "post",
-		url: "/inout_new",
+		url: "/deal_new",
                 data:{"phone":phone,
-                      "name":name,
-                      "zcbm":zcbm,
+                      "money":money,
+                      "sort":sortnn,
+                      "deposit":deposit,
                       "remark":remark,
                       "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
                       },

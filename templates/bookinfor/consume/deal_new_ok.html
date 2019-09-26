@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block member_new_block %}<li class="active">{% endblock %}
-{% block head_block %}Member New{% endblock %}
+{% block deal_new_block %}<li class="active">{% endblock %}
+{% block head_block %}Deal New Successful!!! {% endblock %}
 
 {% block body_block %}
 
@@ -16,37 +16,23 @@
    </div>
 
    <div class="form-group">
-      <label for="membername" class="col-sm-2 control-label">姓名</label>
+      <label for="money" class="col-sm-2 control-label">消费金额</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="membername" placeholder="张三">
+         <input type="text" class="form-control" name="money" placeholder="1000">
       </div>
    </div>
 
    <div class="form-group">
-      <label for="account" class="col-sm-2 control-label">社交帐号</label>
+      <label for="sort" class="col-sm-2 control-label">类型</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="account" placeholder="wx_123456">
+         <input type="text" class="form-control" name="sort" placeholder="充值/消费">
       </div>
    </div>
 
    <div class="form-group">
-      <label for="mail" class="col-sm-2 control-label">邮箱</label>
+      <label for="deposit" class="col-sm-2 control-label">押金</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="mail" placeholder="tushu@163.com">
-      </div>
-   </div>
-
-  <div class="form-group">
-      <label for="expir" class="col-sm-2 control-label">到期时间</label>
-      <div class="col-sm-3">
-         <input type="date" name="expir" value="2010-01-01"/>
-      </div>
-   </div>
-
-   <div class="form-group">
-      <label for="card" class="col-sm-2 control-label">会员卡号</label>
-      <div class="col-sm-3">
-         <input type="text" class="form-control" name="card" placeholder="0001">
+         <input type="text" class="form-control" name="deposit" placeholder="1000">
       </div>
    </div>
 

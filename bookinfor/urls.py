@@ -15,6 +15,8 @@ urlpatterns = [
     path('member_log/', views.member_log),
 
     path('deal_query/', views.deal_query),
+    path('deal_manage/', views.deal_manage),
+    path('deal_new', views.deal_new),
 
     path('inout_query/', views.inout_query),
     path('inout_manage/', views.inout_manage),

@@ -7,6 +7,21 @@
 <form action="" method="get">
 
 
+  <div class="form-group">
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号，如 13912345678">
+      </div>
+   </div>
+
+
+  <div class="btn-group">
+    <input type="submit" class="btn btn-default" name="querydata" value="搜索"></input>
+  </div>
+
+
+<hr class="hr" />
+
+
 <div class="table-responsive">
   <table class="table table-condensed table-striped table-hover">
     
@@ -18,6 +33,8 @@
       <th>消费金额</th>
       <th>操作人</th>
       <th>交易类型</th>
+      <th>余额</th>
+      <th>押金</th>
       <th>备注</th>
     </tr>
     </thead>
@@ -32,6 +49,8 @@
         <td>{{ consume.money }}</td>
         <td>{{ consume.handler }}</td>
         <td>{{ consume.sort }}</td>
+        <td>{{ consume.over }}</td>
+        <td>{{ consume.deposit }}</td>
         <td>{{ consume.remark }}</td>
       </tr>
       {% endfor %}
