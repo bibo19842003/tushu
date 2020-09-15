@@ -61,11 +61,12 @@ class Bookinfor(models.Model):
   position = models.CharField(max_length=20, null=True, blank=True, verbose_name='存放位置')
   language = models.CharField(max_length=20, null=True, blank=True, verbose_name='语言')
   true_price = models.CharField(max_length=20, null=True, blank=True, verbose_name='购买价格')
+  book_link = models.CharField(max_length=50, null=True, blank=True, verbose_name='链接')
   remark1 = models.CharField(max_length=20, null=True, blank=True, verbose_name='备注1')
   remark2 = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注2')
 
   def __str__(self):
-    return '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.book_name, self.book_set_name, self.series_name, self.publisher, self.size, self.edition, self.price, self.author_text, self.author_picture, self.translation, self.setset, self.hardcover, self.sortname, self.pinyin, self.per_amount, self.set_amount, self.book_amount, self.borrow_amount, self.remain_amount, self.position, self.language, self.true_price, self.remark1, self.remark2)
+    return '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.book_name, self.book_set_name, self.series_name, self.publisher, self.size, self.edition, self.price, self.author_text, self.author_picture, self.translation, self.setset, self.hardcover, self.sortname, self.pinyin, self.per_amount, self.set_amount, self.book_amount, self.borrow_amount, self.remain_amount, self.position, self.language, self.true_price, self.book_link, self.remark1, self.remark2)
 
 
 
