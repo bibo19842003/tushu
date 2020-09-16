@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block book_import_block %}<li class="active">{% endblock %}
+{% block head_block %}Book Import{% endblock %}
+
+{% block body_block %}
+
+<form class="form-horizontal" role="form" action="" method="post">
+
+  {% csrf_token %}
+
+  <div class="form-group">
+      <label for="booklink" class="col-sm-2 control-label">链接</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="booklink" value="{{ booklink }}" placeholder="请输入书的链接地址">
+      </div>
+   </div>
+
+  <div class="form-group">
+      <label for="bookname" class="col-sm-2 control-label">书名</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="bookname" value="{{ bookname }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="author" class="col-sm-2 control-label">作者</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="author" value="{{ author }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="publisher" class="col-sm-2 control-label">出版社</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="publisher" value="{{ publisher }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="edition" class="col-sm-2 control-label">出版时间</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="edition" value="{{ edition | cut:'出版时间:' }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="price" class="col-sm-2 control-label">定价</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="price" value="{{ price }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="size" class="col-sm-2 control-label">大小</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="size" value="{{ size | cut:'</li>'| cut:'开 本：' }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="paper" class="col-sm-2 control-label">纸张</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="paper" value="{{ paper | cut:'</li>'| cut:'纸 张：' }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="hardcover" class="col-sm-2 control-label">包装</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="hardcover" value="{{ hardcover | cut:'</li>' | cut:'包 装：' }}" readonly="readonly">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="setset" class="col-sm-2 control-label">套装</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="setset" value="{{ setset | cut:'</li>'|cut:'是否套装：' }}" readonly="readonly">
+      </div>
+   </div>
+
+   <hr class="hr" />
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <input id="querydata" name="cx" type="submit" class="btn btn-default" value="查询" data-loading-text="查询中......">
+      <input id="importdata" name="importdata" type="submit" class="btn btn-default" value="提交" data-loading-text="提交中......">
+    </div>
+  </div>
+
+</form>
+
+
+
+{% endblock %}

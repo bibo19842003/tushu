@@ -2,9 +2,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import RequestContext, loader, Context
 from django.contrib.auth.decorators import login_required
-from bookinfor.models import Bookinfor, Consume, Bookmember, Inoutrecord
+from bookinfor.models import Bookinfor, Consume, Bookmember, Inoutrecord, Author, Publish
 import time
 import os
+import urllib.request
+import urllib.parse
+from bs4 import BeautifulSoup
+import requests, re
+import sys
+import urllib.error
 
 
 # --- index begin ---
@@ -140,6 +146,95 @@ def book_query(request):
   bookinfor = Bookinfor.objects.filter(book_name__icontains=bookname)
 
   return render(request, 'bookinfor/bookinfor/book_query.html', {'bookinfor': bookinfor,})
+
+
+@login_required
+def book_import(request):
+  if request.POST.get('booklink') == None:
+      return render(request, 'bookinfor/bookinfor/book_import.html')
+
+  booklink = request.POST.get('booklink')
+
+  headers = {
+  'User-Agent':' Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/81.0.4044.138 Chrome/81.0.4044.138 Safari/537.36',
+  }
+
+  req = urllib.request.Request(url=booklink,headers=headers)
+
+  try:
+    res = urllib.request.urlopen(req)
+  except urllib.request.URLError as e:
+    return render(request, 'bookinfor/bookinfor/book_import_link_error.html')
+
+  bsObj = BeautifulSoup(res, 'html.parser')
+
+  tags = bsObj.find_all('div', class_="name_info")
+
+  for tag in tags:
+    bookname=tag.h1['title']
+
+  author_info = bsObj.find_all('div', class_="messbox_info")
+  for zuozhe in author_info:
+    for zuozhe_name in zuozhe.span.contents[1]:
+      author = zuozhe_name
+    publisher = zuozhe.span.next_sibling.contents[1].contents[0]
+    edition = zuozhe.span.next_sibling.next_sibling.contents[0]
+
+  prices=str(bsObj.select("div#original-price"))
+  price=str(prices.split("span>")[1]).split(" ")[0]
+
+  details=str(bsObj.select("div#detail_describe"))
+  size=details.split("<li>")[1]
+  paper=details.split("<li>")[2]
+  hardcover=details.split("<li>")[3]
+  setset=details.split("<li>")[4]
+
+  if 'cx' in request.POST:
+    return render(request, 'bookinfor/bookinfor/book_import.html', {'bookname': bookname, 'booklink': booklink, 'author': author, 'publisher':publisher, 'edition':edition, 'price':price, 'size':size, 'paper':paper, 'hardcover':hardcover, 'setset':setset,})
+
+  if 'importdata' in request.POST:
+    if request.POST.get('bookname') =="" or request.POST.get('booklink') == "":
+      return render(request, 'bookinfor/bookinfor/book_import.html')
+
+    bookname = request.POST.get('bookname')
+    booklink = request.POST.get('booklink')
+    author = request.POST.get('author')
+    publisher = request.POST.get('publisher')
+    edition = request.POST.get('edition')
+    price = request.POST.get('price')
+    size = request.POST.get('size')
+    paper = request.POST.get('paper')
+    hardcover = request.POST.get('hardcover')
+    setset = request.POST.get('setset')
+
+    authorinfo = Author.objects.filter(chn_name = author)
+    if not authorinfo.exists():
+      print("new author, new author, new author")
+      newauthor = Author(chn_name=author)
+      newauthor.save()
+    authorinfoupdate = Author.objects.get(chn_name = author)
+
+    publishinfo = Publish.objects.filter(name = publisher)
+    if not publishinfo.exists():
+      print("new publisher, new publisher, new publisher")
+      newpublisher = Publish(name = publisher)
+      newpublisher.save()
+    publishinfoupdate = Publish.objects.get(name = publisher)
+
+    if hardcover == "精装":
+      hardcoverchoice = "jingz"
+    else:
+      hardcoverchoice = "jianz"
+
+    if setset == "是":
+      setsetchoice = "s"
+    else:
+      setsetchoice = "f"
+
+    newbookinfor = Bookinfor(book_name=bookname, book_link=booklink, author_text=authorinfoupdate, publisher=publishinfoupdate, edition=edition, price=price, size=size, hardcover=hardcoverchoice, setset=setsetchoice)
+    newbookinfor.save()
+    return render(request, 'bookinfor/bookinfor/book_import_ok.html', {'bookname': bookname, 'booklink': booklink, 'author': author, 'publisher':publisher, 'edition':edition, 'price':price, 'size':size, 'paper':paper, 'hardcover':hardcover, 'setset':setset,})
+
 
 
 # --- book end ---

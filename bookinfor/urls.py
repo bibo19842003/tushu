@@ -7,6 +7,7 @@ urlpatterns = [
     path('index/', views.index),
 
     path('book_query/', views.book_query),
+    path('book_import/', views.book_import),
 
     path('member_query/', views.member_query),
     path('member_manage/', views.member_manage),
