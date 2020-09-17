@@ -26,6 +26,7 @@
     <thead>
     <tr>
       <th>序号</th>
+      <th>SN</th>
       <th>书名</th>
       <th>套装名称</th>
       <th>系列名称</th>
@@ -41,16 +42,14 @@
       <th>类别</th>
       <th>拼音</th>
       <th>每套几本</th>
-      <th>总套数</th>
-      <th>总本数</th>
-      <th>借出数量(套)</th>
-      <th>库存数量(套)</th>
+      <th>状态</th>
+      <th>纸张</th>
       <th>存放位置</th>
       <th>语言</th>
       <th>购买价格</th>
       <th>链接</th>
+      <th>ISBN</th>
       <th>备注1</th>
-      <th>备注2</th>
     </tr>
     </thead>
 
@@ -59,6 +58,7 @@
       {% for bookinfor in bookinfor %}
       <tr class="info">
         <td>{{ forloop.counter }}</td>
+        <td>{{ bookinfor.sn }}</td>
         <td>{{ bookinfor.book_name }}</td>
         <td>{{ bookinfor.book_set_name }}</td>
         <td>{{ bookinfor.series_name }}</td>
@@ -74,16 +74,14 @@
         <td>{{ bookinfor.sortname }}</td>
         <td>{{ bookinfor.pinyin }}</td>
         <td>{{ bookinfor.per_amount }}</td>
-        <td>{{ bookinfor.set_amount }}</td>
-        <td>{{ bookinfor.book_amount }}</td>
-        <td>{{ bookinfor.borrow_amount }}</td>
-        <td>{{ bookinfor.remain_amount}}</td>
+        <td>{{ bookinfor.book_status }}</td>
+        <td>{{ bookinfor.book_paper }}</td>
         <td>{{ bookinfor.position }}</td>
         <td>{{ bookinfor.language }}</td>
         <td>{{ bookinfor.true_price }}</td>
         <td>{{ bookinfor.book_link }}</td>
+        <td>{{ bookinfor.isbn }}</td>
         <td>{{ bookinfor.remark1 }}</td>
-        <td>{{ bookinfor.remark2 }}</td>
 
 
       </tr>

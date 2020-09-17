@@ -35,6 +35,7 @@ class Publish(models.Model):
 
 
 class Bookinfor(models.Model):
+  sn = models.CharField(max_length=20, primary_key=True, default=time.strftime("%Y%m%d%H%M%S", time.localtime()), verbose_name='SN')
   book_name = models.CharField(max_length=30, verbose_name='书名')
   book_set_name = models.CharField(max_length=20, null=True, blank=True, verbose_name='套装名称')
   series_name = models.ForeignKey(Bookseries, on_delete=models.CASCADE, null=True, blank=True, verbose_name='系列名称')
@@ -51,22 +52,19 @@ class Bookinfor(models.Model):
   hardcover = models.CharField(max_length=10, null=True, blank=True, verbose_name='装订', choices=(('jingz','精装'),('jianz','简装')))
   sortname = models.ForeignKey(Sort, on_delete=models.CASCADE, null=True, blank=True, verbose_name='类别')
   pinyin = models.CharField(max_length=10, null=True, blank=True, verbose_name='拼音')
-
   per_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='每套几本')
-  set_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='总套数')
-  book_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='总本数')
-  borrow_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='借出数量(套)')
-  remain_amount = models.CharField(max_length=100, null=True, blank=True, verbose_name='库存数量(套)')
+  book_status = models.CharField(max_length=10, null=True, blank=True, verbose_name='状态')
+  book_paper = models.CharField(max_length=10, null=True, blank=True, verbose_name='纸张')
 
   position = models.CharField(max_length=20, null=True, blank=True, verbose_name='存放位置')
   language = models.CharField(max_length=20, null=True, blank=True, verbose_name='语言')
   true_price = models.CharField(max_length=20, null=True, blank=True, verbose_name='购买价格')
   book_link = models.CharField(max_length=50, null=True, blank=True, verbose_name='链接')
+  isbn = models.CharField(max_length=20, null=True, blank=True, verbose_name='ISBN')
   remark1 = models.CharField(max_length=20, null=True, blank=True, verbose_name='备注1')
-  remark2 = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注2')
 
   def __str__(self):
-    return '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.book_name, self.book_set_name, self.series_name, self.publisher, self.size, self.edition, self.price, self.author_text, self.author_picture, self.translation, self.setset, self.hardcover, self.sortname, self.pinyin, self.per_amount, self.set_amount, self.book_amount, self.borrow_amount, self.remain_amount, self.position, self.language, self.true_price, self.book_link, self.remark1, self.remark2)
+    return '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.sn, self.book_name, self.book_set_name, self.series_name, self.publisher, self.size, self.edition, self.price, self.author_text, self.author_picture, self.translation, self.setset, self.hardcover, self.sortname, self.pinyin, self.per_amount, self.book_status, self.book_paper, self.position, self.language, self.true_price, self.book_link, self.isbn, self.remark1)
 
 
 
