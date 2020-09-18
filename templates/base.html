@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../static/css/dashboard.css" rel="stylesheet">
+    {% block css_block %}{% endblock %}
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -79,7 +80,7 @@
               <ul class="dropdown-menu">
                 {% block inout_query_block %}<li>{% endblock %} <a href="/inout_query">In and Out Query</a></li>
                 {% block inout_manage_block %}<li>{% endblock %} <a href="/inout_manage">In and Out  Manage</a></li>
-                {% block inout_new_block %}<li>{% endblock %} <a href="/inout_new">In and Out  New</a></li>
+                {% block inout_out_new_block %}<li>{% endblock %} <a href="/inout_out_new">Out New</a></li>
                 {% block inout_log_block %}<li>{% endblock %} <a href="/inout_log">In and Out  Log</a></li>
               </ul>
             </li>
@@ -101,7 +102,6 @@
               {% if user.is_authenticated %}
                 <a href="/accounts/logout">Logout</a>
               {% else %}
-                <a href="/accounts/login">Login</a>
               {% endif %}
             </li>
             <li><a href="/admin">Admin</a></li>
@@ -135,5 +135,6 @@
         });
       });
     </script>
+    {% block script_block %}{% endblock %}
   </body>
 </html>

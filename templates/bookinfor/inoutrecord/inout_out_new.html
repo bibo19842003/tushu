@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-{% block inout_new_block %}<li class="active">{% endblock %}
-{% block head_block %}In and Out New Successful!!! {% endblock %}
+{% block css_block %}<link href="../static/css/jquery-ui.css" rel="stylesheet">{% endblock %}
+{% block inout_out_new_block %}<li class="active">{% endblock %}
+{% block head_block %}Out New{% endblock %}
+
 
 {% block body_block %}
+
 
 <form class="form-horizontal" role="form" action="" method="post">
 
@@ -11,7 +14,7 @@
   <div class="form-group">
       <label for="phone" class="col-sm-2 control-label">电话</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678">
+         <input id="search" type="text" class="form-control" name="search" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
    </div>
 
@@ -46,6 +49,22 @@
 
 </form>
 
+{% endblock %}
 
 
+{% block script_block %}
+
+<script src="../static/js/jquery-ui.min.js"></script>
+  <script>
+
+    $(function() {
+        $("#search").keyup(function(){
+            var searchvalue = $("#search").val();
+            $("#search").autocomplete({
+                source: '/ajax_get_phone_list/?search=' + searchvalue ,
+                minLength: 2
+            });
+        });
+    });
+  </script>
 {% endblock %}

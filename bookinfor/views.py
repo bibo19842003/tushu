@@ -11,6 +11,8 @@ from bs4 import BeautifulSoup
 import requests, re
 import sys
 import urllib.error
+import json
+from django.http import JsonResponse
 
 
 # --- index begin ---
@@ -241,7 +243,6 @@ def book_import(request):
 
 
 
-
 # --- consume begin ---
 
 @login_required
@@ -310,8 +311,6 @@ def deal_manage(request):
 
 
 
-
-
 # --- in out begin ---
 
 @login_required
@@ -355,12 +354,12 @@ def inout_manage(request):
 
 
 @login_required
-def inout_new(request):
+def inout_out_new(request):
     if request.POST.get('phone') == None:
-      return render(request, 'bookinfor/inoutrecord/inout_new.html')
+      return render(request, 'bookinfor/inoutrecord/inout_out_new.html')
 
     if request.POST.get('phone') =="" or request.GET.get('name') == "" or request.GET.get('outtime') == "":
-      return render(request, 'bookinfor/inoutrecord/inout_new.html')
+      return render(request, 'bookinfor/inoutrecord/inout_out_new.html')
 
     phone = request.POST.get('phone')
     name = request.POST.get('name')
@@ -372,7 +371,7 @@ def inout_new(request):
     inout = Inoutrecord(phone=phone, name=name, zcbm=zcbm, outtime=outtime, handlerout=handlerout, remark=remark)
     inout.save()
 
-    return render(request, 'bookinfor/inoutrecord/inout_new_ok.html')
+    return render(request, 'bookinfor/inoutrecord/inout_out_new_ok.html')
 
 
 
@@ -418,5 +417,27 @@ def inout_log(request):
 
 
 # --- in out end ---
+
+
+
+# --- ajax begin ---
+
+# phone list
+def ajax_get_phone_list(request):
+    search = request.GET.get('search')
+    val_list = []
+
+    if search == None or '':
+        return JsonResponse(val_list, safe=False)
+    else:
+        orgs = Bookmember.objects.filter(phone__icontains=search)
+
+        for org in orgs.values('phone'):
+          val_list.append(org['phone'])
+        return JsonResponse(val_list, safe=False)
+
+
+
+# --- ajax end ---
 
 

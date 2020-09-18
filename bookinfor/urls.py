@@ -6,6 +6,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('index/', views.index),
 
+    path('ajax_get_phone_list/', views.ajax_get_phone_list),
+
     path('book_query/', views.book_query),
     path('book_import/', views.book_import),
 
@@ -21,7 +23,7 @@ urlpatterns = [
 
     path('inout_query/', views.inout_query),
     path('inout_manage/', views.inout_manage),
-    path('inout_new', views.inout_new),
+    path('inout_out_new', views.inout_out_new),
     path('inout_modify/', views.inout_modify),
     path('inout_log/', views.inout_log),
 ]
