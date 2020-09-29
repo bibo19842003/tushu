@@ -376,6 +376,28 @@ def inout_out_new(request):
 
 
 @login_required
+def inout_in_new(request):
+    if request.POST.get('sn') == None:
+      return render(request, 'bookinfor/inoutrecord/inout_in_new.html')
+
+    if request.POST.get('sn') =="" or request.POST.get('intime') == "":
+      return render(request, 'bookinfor/inoutrecord/inout_in_new.html')
+
+    handlerin =str(request.user)
+    intime = request.POST.get('intime')
+    remark = request.POST.get('remark')
+    sn = request.POST.get('sn')
+    name = request.POST.get('name')
+
+    Inoutrecord.objects.filter(sn=sn).update(handlerin=handlerin, intime=intime, remark=remark)
+
+    inoutlogfile(handlerin, sn, name, intime, remark)
+
+    return render(request, 'bookinfor/inoutrecord/inout_in_new_ok.html')
+
+
+
+@login_required
 def inout_modify(request):
 
   if request.GET.get('phone') == None:

@@ -25,6 +25,7 @@ urlpatterns = [
     path('inout_query/', views.inout_query),
     path('inout_manage/', views.inout_manage),
     path('inout_out_new', views.inout_out_new),
+    path('inout_in_new', views.inout_in_new),
     path('inout_modify/', views.inout_modify),
     path('inout_log/', views.inout_log),
 ]
