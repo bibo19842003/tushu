@@ -21,21 +21,38 @@
    <div class="form-group">
       <label for="name" class="col-sm-2 control-label">书名</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="name" placeholder="14只老鼠大搬家">
+         <input id="searchbook" type="text" class="form-control" name="searchbook" placeholder="请输入要搜索的书名" autocomplete="off">
+         </br>
+         <input id="addTable" type="button" class="btn btn-success" value="Add Book">
+         <input id="deleteTable" type="button" class="btn btn-danger" value="Del Book">
+
+         </br>
+<div class="table-responsive">
+         <table class="table table-condensed table-striped table-hover">
+           <thead>
+             <tr>
+               <th></th>
+               <th>SN</th>
+               <th>书名</th>
+               <th>状态</th>
+             </tr>
+           </thead>
+           <tbody>
+
+             <table id="booktable"></table>
+           </tbody>
+
+        </table>
+</div>
+
       </div>
    </div>
 
-   <div class="form-group">
-      <label for="zcbm" class="col-sm-2 control-label">资产编码</label>
-      <div class="col-sm-3">
-         <input type="text" class="form-control" name="zcbm" placeholder="暂不用填写">
-      </div>
-   </div>
 
    <div class="form-group">
       <label for="remark" class="col-sm-2 control-label">备注</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="remark" placeholder="备注">
+         <input id="remark" type="text" class="form-control" name="remark" placeholder="备注">
       </div>
    </div>
 
@@ -43,11 +60,13 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-3">
-      <input id="waiting" type="submit" class="btn btn-default" value="提交" data-loading-text="提交中......">
+      <input id="inoutrecord" type="submit" class="btn btn-default" value="提交" data-loading-text="提交中......">
+      <input id="printtable" type="submit" class="btn btn-default" value="显示">
     </div>
   </div>
 
 </form>
+
 
 {% endblock %}
 
@@ -56,7 +75,6 @@
 
 <script src="../static/js/jquery-ui.min.js"></script>
   <script>
-
     $(function() {
         $("#search").keyup(function(){
             var searchvalue = $("#search").val();
@@ -66,5 +84,91 @@
             });
         });
     });
+
+    $(function() {
+        $("#searchbook").keyup(function(){
+            var searchvalue = $("#searchbook").val();
+            $("#searchbook").autocomplete({
+                source: '/ajax_get_book_list/?searchbook=' + searchvalue ,
+                minLength: 2
+            });
+        });
+    });
+
+
+
+    $(document).ready(function(){
+        $("#addTable").click(function(){
+           var ressearchbook=document.getElementById("searchbook").value;
+           var sn = ressearchbook.split(' | ')[0]
+           var bookname = ressearchbook.split(' | ')[1]
+           var bookstatus = ressearchbook.split(' | ')[2]
+           var bookitem="<tr><td><input type=\"checkbox\" name=\"check\"/></td>" +
+                  "<td>" + sn + "</td>" +
+                  "<td>" + bookname + "</td>" +
+                  "<td>" + bookstatus + "</td>" +
+                  "</tr>";
+    　  　$("#booktable").append(bookitem);
+          $("#searchbook").val("");
+        });
+
+
+        $("#deleteTable").click(function(){
+            var check = document.getElementsByName("check");
+            for(var i=0;i<check.length;i++){
+                if(check[i].checked){
+                     document.getElementById('booktable').deleteRow(i);
+                     i--;
+                };
+            };
+        });
+
+
+       $('#printtable').click(function(){
+           $('#booktable tr').each(function(i){      // 遍历 tr
+               var sn=$(this).children('td').eq(1).text();
+               var bookname=$(this).children('td').eq(2).text();
+               var status=$(this).children('td').eq(3).text();
+
+               alert("sn:"+sn+" name:"+bookname+" status:"+status);
+
+           });
+       });
+
+
+       $('#inoutrecord').click(function(){
+           $('#booktable tr').each(function(i){      // 遍历 tr
+               var sn=$(this).children('td').eq(1).text();
+               var bookname=$(this).children('td').eq(2).text();
+               var status=$(this).children('td').eq(3).text();
+               var phone = $('#search').val();
+               var remark = $('#remark').val();
+
+               $.ajaxSetup({
+                   data:{csrfmiddlewaretoken:'{{ csrf_token }}'},
+               });
+
+	       $.ajax({
+                   type: "post",
+                   url: "/inout_out_new",
+                   data:{"phone":phone,
+                         "name":bookname,
+                         "sn":sn,
+                         "remark":remark,
+                         "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
+                         },
+
+                   success: function(result) {
+                           location.reload();
+                   }
+               });
+           });
+       });
+
+
+    });
+
+
   </script>
+
 {% endblock %}

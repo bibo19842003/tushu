@@ -7,6 +7,7 @@ urlpatterns = [
     path('index/', views.index),
 
     path('ajax_get_phone_list/', views.ajax_get_phone_list),
+    path('ajax_get_book_list/', views.ajax_get_book_list),
 
     path('book_query/', views.book_query),
     path('book_import/', views.book_import),

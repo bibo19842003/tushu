@@ -53,7 +53,7 @@ class Bookinfor(models.Model):
   sortname = models.ForeignKey(Sort, on_delete=models.CASCADE, null=True, blank=True, verbose_name='类别')
   pinyin = models.CharField(max_length=10, null=True, blank=True, verbose_name='拼音')
   per_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='每套几本')
-  book_status = models.CharField(max_length=10, null=True, blank=True, verbose_name='状态')
+  book_status = models.CharField(max_length=10, null=True, blank=True, verbose_name='状态', default='未借出')
   book_paper = models.CharField(max_length=10, null=True, blank=True, verbose_name='纸张')
 
   position = models.CharField(max_length=20, null=True, blank=True, verbose_name='存放位置')
@@ -108,7 +108,7 @@ class Inoutrecord(models.Model):
   outtime = models.DateTimeField(null=True, blank=True, verbose_name='借出时间', auto_now_add = True)
   intime = models.DateTimeField(null=True, blank=True, verbose_name='归还时间')
   name = models.CharField(max_length=20, null=True, blank=True, verbose_name='书名')
-  zcbm = models.CharField(max_length=20, null=True, blank=True, verbose_name='资产编码')
+  sn = models.CharField(max_length=20, null=True, blank=True, verbose_name='SN')
   handlerout = models.CharField(max_length=20, null=True, blank=True, verbose_name='操作人出')
   handlerin = models.CharField(max_length=20, null=True, blank=True, verbose_name='操作人还')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')

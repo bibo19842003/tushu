@@ -363,12 +363,12 @@ def inout_out_new(request):
 
     phone = request.POST.get('phone')
     name = request.POST.get('name')
-    zcbm = request.POST.get('zcbm')
+    sn = request.POST.get('sn')
     outtime = request.POST.get('outtime')
     handlerout =str(request.user)
     remark = request.POST.get('remark')
 
-    inout = Inoutrecord(phone=phone, name=name, zcbm=zcbm, outtime=outtime, handlerout=handlerout, remark=remark)
+    inout = Inoutrecord(phone=phone, name=name, sn=sn, outtime=outtime, handlerout=handlerout, remark=remark)
     inout.save()
 
     return render(request, 'bookinfor/inoutrecord/inout_out_new_ok.html')
@@ -434,6 +434,24 @@ def ajax_get_phone_list(request):
 
         for org in orgs.values('phone'):
           val_list.append(org['phone'])
+        return JsonResponse(val_list, safe=False)
+
+
+# book name list
+def ajax_get_book_list(request):
+    search = request.GET.get('searchbook')
+    val_list = []
+
+    if search == None or '':
+        return JsonResponse(val_list, safe=False)
+    else:
+        orgs = Bookinfor.objects.filter(book_name__icontains=search)
+
+        for org in orgs.values('sn', 'book_name', 'book_status'):
+            bookinfor = org['sn'] + " | " + org['book_name'] + " | " + org['book_status']
+            print('aaaaaa', bookinfor , 'bbbbbb')
+            val_list.append(bookinfor)
+        print(val_list)
         return JsonResponse(val_list, safe=False)
 
 

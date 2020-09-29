@@ -35,7 +35,7 @@
       <th>序号</th>
       <th>电话</th>
       <th>书名</th>
-      <th>资产编码</th>
+      <th>SN</th>
       <th>借出时间</th>
       <th>操作人出</th>
       <th>归还时间</th>
@@ -53,7 +53,7 @@
              <a href="/inout_modify/?phone={{ inout.phone }}&name={{ inout.name }}&cx=yinchang" target="_blank">{{ inout.phone }}</a>
         </td>
         <td id="namex">{{ inout.name }}</td>
-        <td id="zcbmx">{{ inout.zcbm }}</td>
+        <td id="snx">{{ inout.sn }}</td>
         <td id="outtimex">{{ inout.outtime }}</td>
         <td id="handleroutx">{{ inout.handlerout }}</td>
         <td id="intimex">{{ inout.intime }}</td>
@@ -91,8 +91,8 @@
    </div>
 
    <div class="form-group">
-      <label for="zcbmn">资产编码</label>
-         <input type="text" class="form-control" name="zcbmn" id="zcbmn" placeholder="暂不用填写">
+      <label for="snn">资产编码</label>
+         <input type="text" class="form-control" name="snn" id="snn" placeholder="暂不用填写">
    </div>
 
 
@@ -120,7 +120,7 @@ function newdata() {
 	//获取模态框数据
 	var phone = $('#phonen').val();
 	var name = $('#namen').val();
-	var zcbm = $('#zcbmn').val();
+	var sn = $('#snn').val();
 	var remark = $('#remarkn').val();
 
         $.ajaxSetup({
@@ -132,7 +132,7 @@ function newdata() {
 		url: "/inout_out_new",
                 data:{"phone":phone,
                       "name":name,
-                      "zcbm":zcbm,
+                      "sn":sn,
                       "remark":remark,
                       "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
                       },
