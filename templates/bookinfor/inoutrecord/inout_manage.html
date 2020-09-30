@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block css_block %}<link href="../static/css/jquery-ui.css" rel="stylesheet">{% endblock %}
 {% block inout_manage_block %}<li class="active">{% endblock %}
 {% block head_block %}In and Out Manage{% endblock %}
 
@@ -8,13 +9,13 @@
 
   <div class="form-group">
       <div class="col-sm-2">
-         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号">
+         <input id="search" type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
   </div>
 
   <div class="form-group">
       <div class="col-sm-2">
-         <input type="text" class="form-control" name="name" placeholder="请输入要搜索的书名">
+         <input id="searchbook" type="text" class="form-control" name="name" placeholder="请输入要搜索的书名" autocomplete="off">
       </div>
   </div>
 
@@ -76,5 +77,25 @@
   </table>
 </div>
 
+
+{% endblock %}
+
+
+
+{% block script_block %}
+
+<script src="../static/js/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+        $("#search").keyup(function(){
+            var searchvalue = $("#search").val();
+            $("#search").autocomplete({
+                source: '/ajax_get_phone_list/?search=' + searchvalue ,
+                minLength: 2
+            });
+        });
+    });
+
+  </script>
 
 {% endblock %}
