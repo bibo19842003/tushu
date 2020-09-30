@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 {% block member_new_block %}<li class="active">{% endblock %}
-{% block head_block %}Member Modify Successful{% endblock %}
+{% block head_block %}Member Modify Successful!!! {% endblock %}
 
 {% block body_block %}
 
 {% for member in member %}
 
 <form class="form-horizontal" role="form" action="" method="get">
-
-  <h1><font color="green">已更新</font></h1>
 
   <div class="form-group">
       <label for="phone" class="col-sm-2 control-label">电话</label>
@@ -46,9 +44,16 @@
    </div>
 
    <div class="form-group">
-      <label for="card" class="col-sm-2 control-label">会员卡号</label>
+      <label for="deposit" class="col-sm-2 control-label">押金</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="card" value="{{ member.card }}" placeholder="0001">
+         <input type="text" class="form-control" name="deposit" value="{{ member.deposit }}" placeholder="200">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="deposit" class="col-sm-2 control-label">余额</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="remain" value="{{ member.remain }}" placeholder="200">
       </div>
    </div>
 
@@ -58,6 +63,15 @@
          <input type="text" class="form-control" name="remark" value="{{ member.remark }}" placeholder="备注">
       </div>
    </div>
+
+   <hr class="hr" />
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <input id="waiting" type="submit" class="btn btn-default" value="更新" data-loading-text="更新中......" name="gx">
+      <input id="yc" type="submit" class="btn btn-default" value="yinchang" style="VISIBILITY: hidden" name="cx">
+    </div>
+  </div>
 
 </form>
 

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block css_block %}<link href="../static/css/jquery-ui.css" rel="stylesheet">{% endblock %}
 {% block member_manage_block %}<li class="active">{% endblock %}
 {% block head_block %}Member Manage{% endblock %}
 
@@ -8,7 +9,7 @@
 
   <div class="form-group">
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号，如 13912345678">
+         <input id="search" type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
   </div>
 
@@ -34,7 +35,7 @@
       <th>邮箱</th>
       <th>注册时间</th>
       <th>到期时间</th>
-      <th>会员卡号</th>
+      <th>押金</th>
       <th>余额</th>
       <th>创建人</th>
       <th>备注</th>
@@ -54,7 +55,7 @@
         <td id="mailx">{{ member.mail }}</td>
         <td id="beginx">{{ member.begin }}</td>
         <td id="expirx">{{ member.expir }}</td>
-        <td id="cardx">{{ member.card }}</td>
+        <td id="depositx">{{ member.deposit }}</td>
         <td id="remainx">{{ member.remain }}</td>
         <td id="handlerx">{{ member.handler }}</td>
         <td id="remarkx">{{ member.remark }}</td>
@@ -101,12 +102,17 @@
 
                     <div class="form-group">
                        <label for="expirn">到期时间</label>
-                       <input type="date" name="expirn" id="expirn" value="2010-01-01"/>
+                       <input type="date" name="expirn" id="expirn"/>
                     </div>
 
                     <div class="form-group">
-                       <label for="cardn">会员卡号</label>
-                       <input type="text" class="form-control" name="cardn" id="cardn" placeholder="0001">
+                       <label for="depositn">押金</label>
+                       <input type="text" class="form-control" name="depositn" id="depositn" placeholder="200">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="remainn">余额</label>
+                       <input type="text" class="form-control" name="remainn" id="remainn" placeholder="余额">
                     </div>
 
                     <div class="form-group">
@@ -136,7 +142,8 @@ function newdata() {
 	var account = $('#accountn').val();
 	var mail = $('#mailn').val();
 	var expir = $('#expirn').val();
-	var card = $('#cardn').val();
+	var deposit = $('#depositn').val();
+	var remain = $('#remainn').val();
 	var remark = $('#remarkn').val();
 
         $.ajaxSetup({
@@ -146,18 +153,18 @@ function newdata() {
 	$.ajax({
 		type: "post",
 		url: "/member_new",
-// http://127.0.0.1:8888/member_new/?phone=12345678916&membername=88&account=&mail=&expir=2019-09-14&card=&remark=
-//		data: "phone=" + "12345678923" + "&membername=" + membername + "&account=&mail=&expir=2019-09-22&card=&remark=",
-//		data: "phone=" + phone + "&membername=" + membername + "&account=" + account + "&mail=" + mail + "&expir=" + expir + "&card=" + card + "&remark=" + remark,
+// http://127.0.0.1:8888/member_new/?phone=12345678916&membername=88&account=&mail=&expir=2019-09-14&deposit=&remark=
+//		data: "phone=" + "12345678923" + "&membername=" + membername + "&account=&mail=&expir=2019-09-22&deposit=&remark=",
+//		data: "phone=" + phone + "&membername=" + membername + "&account=" + account + "&mail=" + mail + "&expir=" + expir + "&deposit=" + deposit + "&remark=" + remark,
 
                 data:{"phone":phone,
                       "membername":membername,
                       "account":account,
                       "mail":mail,
                       "expir":expir,
-                      "card":card,
+                      "deposit":deposit,
                       "remark":remark,
-                      "remain":'0',
+                      "remain":remain,
                       "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
                       },
 
@@ -178,5 +185,27 @@ function newdata() {
 </script>
 
 
+
+{% endblock %}
+
+
+
+{% block script_block %}
+
+<script src="../static/js/jquery-ui.min.js"></script>
+  <script>
+
+    $(function() {
+        $("#search").keyup(function(){
+            var searchvalue = $("#search").val();
+            $("#search").autocomplete({
+                source: '/ajax_get_phone_list/?search=' + searchvalue ,
+                minLength: 2
+            });
+        });
+    });
+
+
+  </script>
 
 {% endblock %}

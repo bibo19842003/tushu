@@ -44,9 +44,16 @@
    </div>
 
    <div class="form-group">
-      <label for="card" class="col-sm-2 control-label">会员卡号</label>
+      <label for="deposit" class="col-sm-2 control-label">押金</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="card" value="{{ member.card }}" placeholder="0001">
+         <input type="text" class="form-control" name="deposit" value="{{ member.deposit }}" placeholder="200">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="deposit" class="col-sm-2 control-label">余额</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="remain" value="{{ member.remain }}" placeholder="200">
       </div>
    </div>
 

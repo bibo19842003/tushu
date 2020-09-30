@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block css_block %}<link href="../static/css/jquery-ui.css" rel="stylesheet">{% endblock %}
 {% block member_query_block %}<li class="active">{% endblock %}
 {% block head_block %}Member Query{% endblock %}
 
@@ -8,7 +9,7 @@
 
   <div class="form-group">
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="phone" placeholder="请输入要搜索的手机号，如 13912345678">
+         <input id="search" type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
    </div>
 
@@ -33,7 +34,7 @@
       <th>邮箱</th>
       <th>注册时间</th>
       <th>到期时间</th>
-      <th>会员卡号</th>
+      <th>押金</th>
       <th>余额</th>
       <th>创建人</th>
       <th>备注</th>
@@ -51,7 +52,7 @@
         <td>{{ member.mail }}</td>
         <td>{{ member.begin }}</td>
         <td>{{ member.expir }}</td>
-        <td>{{ member.card }}</td>
+        <td>{{ member.deposit }}</td>
         <td>{{ member.remain }}</td>
         <td>{{ member.handler }}</td>
         <td>{{ member.remark }}</td>
@@ -62,5 +63,27 @@
 
   </table>
 </div>
+
+{% endblock %}
+
+
+
+{% block script_block %}
+
+<script src="../static/js/jquery-ui.min.js"></script>
+  <script>
+
+    $(function() {
+        $("#search").keyup(function(){
+            var searchvalue = $("#search").val();
+            $("#search").autocomplete({
+                source: '/ajax_get_phone_list/?search=' + searchvalue ,
+                minLength: 2
+            });
+        });
+    });
+
+
+  </script>
 
 {% endblock %}

@@ -11,7 +11,7 @@
   <div class="form-group">
       <label for="phone" class="col-sm-2 control-label">电话</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678">
+         <input type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
    </div>
 
@@ -44,9 +44,16 @@
    </div>
 
    <div class="form-group">
-      <label for="card" class="col-sm-2 control-label">会员卡号</label>
+      <label for="card" class="col-sm-2 control-label">押金</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="card" placeholder="暂时不需要填写" readonly="readonly">
+         <input type="text" class="form-control" name="deposit" placeholder="200">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="card" class="col-sm-2 control-label">余额</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="remain" placeholder="0">
       </div>
    </div>
 

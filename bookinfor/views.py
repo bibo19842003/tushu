@@ -27,7 +27,7 @@ def index(request):
 
 # --- member begin ---
 
-def memberlogfile(runuser, phone, membername, account, mail, expir, card, remark):
+def memberlogfile(runuser, phone, membername, account, mail, expir, deposit, remain, remark):
   t = time.strftime("%Y-%m-%d-%H-%M-%S")
   filename = "member-" + t + "-" + runuser + "-" + phone + ".txt"
   BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,7 +35,7 @@ def memberlogfile(runuser, phone, membername, account, mail, expir, card, remark
   with open(memberlog, 'a+') as f:
     f.write(time.strftime("%Y-%m-%d %H:%M:%S"))
     f.write('\n')
-    f.write(' runuser: %s \n phone: %s \n membername: %s \n account: %s \n mail: %s \n expir: %s \n card: %s \n remark: %s \n' %(runuser, phone, membername, account, mail, expir, card, remark))
+    f.write(' runuser: %s \n phone: %s \n membername: %s \n account: %s \n mail: %s \n expir: %s \n deposit: %s \n remain: %s \n remark: %s \n' %(runuser, phone, membername, account, mail, expir, deposit, remain, remark))
 
 
 
@@ -82,7 +82,7 @@ def member_new(request):
     expir = request.POST.get('expir')
     card = request.POST.get('card')
     remark = request.POST.get('remark')
-    remain = '0'
+    remain = request.POST.get('remain')
 
     newmember = Bookmember(phone=phone, name=membername, account=account, mail=mail, expir=expir, card=card, handler=runuser, remark=remark, remain=remain)
     newmember.save()
@@ -109,14 +109,15 @@ def member_modify(request):
     account = request.GET.get('account')
     mail = request.GET.get('mail')
     expir = request.GET.get('expir')
-    card = request.GET.get('card')
+    deposit = request.GET.get('deposit')
+    remain = request.GET.get('remain')
     remark = request.GET.get('remark')
 
-    Bookmember.objects.filter(phone=phone).update(name=membername, account=account, mail=mail, expir=expir, card=card, handler=runuser, remark=remark)
+    Bookmember.objects.filter(phone=phone).update(name=membername, account=account, mail=mail, expir=expir, deposit=deposit, handler=runuser, remark=remark, remain=remain)
 
     member = Bookmember.objects.filter(phone=phone)
 
-    memberlogfile(runuser, phone, membername, account, mail, expir, card, remark)
+    memberlogfile(runuser, phone, membername, account, mail, expir, deposit, remain, remark)
 
     return render(request, 'bookinfor/bookmember/member_modify_ok.html', {'member': member,})
 

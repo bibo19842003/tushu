@@ -19,7 +19,7 @@ class BookinforAdmin(admin.ModelAdmin):
   list_display = ('sn', 'book_name', 'book_set_name', 'series_name', 'publisher', 'size', 'edition', 'price', 'author_text', 'author_picture', 'translation', 'setset', 'hardcover', 'sortname', 'pinyin', 'per_amount', 'book_status', 'book_paper', 'position', 'language', 'true_price', 'book_link', 'isbn', 'remark1',)
 
 class BookmemberAdmin(admin.ModelAdmin):
-  list_display = ('phone', 'name', 'account', 'mail', 'begin','expir', 'card', 'remain', 'handler', 'remark',)
+  list_display = ('phone', 'name', 'account', 'mail', 'begin','expir', 'deposit', 'remain', 'handler', 'remark',)
 
 class ConsumeAdmin(admin.ModelAdmin):
   list_display = ('phone', 'consumetime', 'money', 'handler', 'over', 'deposit', 'sort', 'remark',)
