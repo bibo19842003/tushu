@@ -233,7 +233,9 @@ def book_import(request):
     else:
       setsetchoice = "f"
 
-    newbookinfor = Bookinfor(book_name=bookname, book_link=booklink, author_text=authorinfoupdate, publisher=publishinfoupdate, edition=edition, price=price, size=size, hardcover=hardcoverchoice, book_paper=paper, setset=setsetchoice)
+    sn=time.strftime("%Y%m%d%H%M%S", time.localtime())
+
+    newbookinfor = Bookinfor(sn=sn, book_name=bookname, book_link=booklink, author_text=authorinfoupdate, publisher=publishinfoupdate, edition=edition, price=price, size=size, hardcover=hardcoverchoice, book_paper=paper, setset=setsetchoice)
     newbookinfor.save()
     return render(request, 'bookinfor/bookinfor/book_import_ok.html', {'bookname': bookname, 'booklink': booklink, 'author': author, 'publisher':publisher, 'edition':edition, 'price':price, 'size':size, 'paper':paper, 'hardcover':hardcover, 'setset':setset,})
 

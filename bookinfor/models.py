@@ -35,7 +35,7 @@ class Publish(models.Model):
 
 
 class Bookinfor(models.Model):
-  sn = models.CharField(max_length=20, primary_key=True, default=time.strftime("%Y%m%d%H%M%S", time.localtime()), verbose_name='SN')
+  sn = models.CharField(max_length=20, primary_key=True, verbose_name='SN')
   book_name = models.CharField(max_length=30, verbose_name='书名')
   book_set_name = models.CharField(max_length=20, null=True, blank=True, verbose_name='套装名称')
   series_name = models.ForeignKey(Bookseries, on_delete=models.CASCADE, null=True, blank=True, verbose_name='系列名称')
