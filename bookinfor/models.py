@@ -75,8 +75,8 @@ class Bookmember(models.Model):
   mail = models.CharField(max_length=20, null=True, blank=True, verbose_name='邮箱')
   begin = models.DateTimeField(null=True, blank=True, verbose_name='注册时间', auto_now_add = True)
   expir = models.DateTimeField(null=True, blank=True, verbose_name='过期时间', auto_now = False)
-  deposit = models.IntegerField(null=True, blank=True, verbose_name='押金')
-  remain = models.CharField(max_length=20, null=True, blank=True, verbose_name='剩余金额', default="0")
+  deposit = models.IntegerField(null=True, blank=True, verbose_name='押金', default="0")
+  remain = models.IntegerField(null=True, blank=True, verbose_name='剩余金额', default="0")
   handler = models.CharField(max_length=10, null=True, blank=True, verbose_name='创建人')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')
 
@@ -94,7 +94,6 @@ class Consume(models.Model):
   handler = models.CharField(max_length=20, null=True, blank=True, verbose_name='操作人')
   sort = models.CharField(max_length=20, null=True, blank=True, verbose_name='类型', choices=(('cz','充值'),('xf','消费')))
   over = models.CharField(max_length=20, null=True, blank=True, verbose_name='余额')
-  deposit = models.CharField(max_length=20, null=True, blank=True, verbose_name='押金')
   remark = models.CharField(max_length=100, null=True, blank=True, verbose_name='备注')
 
 

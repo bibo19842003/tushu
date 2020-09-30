@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block css_block %}<link href="../static/css/jquery-ui.css" rel="stylesheet">{% endblock %}
 {% block deal_new_block %}<li class="active">{% endblock %}
 {% block head_block %}Deal New Successful!!! {% endblock %}
 
@@ -11,23 +12,27 @@
   <div class="form-group">
       <label for="phone" class="col-sm-2 control-label">电话</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678">
+         <input id="search" type="text" class="form-control" name="phone" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
    </div>
 
    <div class="form-group">
-      <label for="money" class="col-sm-2 control-label">消费金额</label>
+      <label for="money" class="col-sm-2 control-label">金额</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="money" placeholder="1000">
+         <input type="text" class="form-control" name="money" placeholder="1000" autocomplete="off">
       </div>
    </div>
 
    <div class="form-group">
       <label for="sort" class="col-sm-2 control-label">类型</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="sort" placeholder="充值/消费">
+         <select class="selectpicker" name="sort">
+             <option value="cz">临时充值</option>
+             <option value="xf">消费</option>                 
+         </select>
       </div>
    </div>
+
 
    <div class="form-group">
       <label for="remark" class="col-sm-2 control-label">备注</label>
@@ -47,5 +52,25 @@
 </form>
 
 
+
+{% endblock %}
+
+
+
+{% block script_block %}
+
+<script src="../static/js/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+        $("#search").keyup(function(){
+            var searchvalue = $("#search").val();
+            $("#search").autocomplete({
+                source: '/ajax_get_phone_list/?search=' + searchvalue ,
+                minLength: 2
+            });
+        });
+    });
+
+  </script>
 
 {% endblock %}

@@ -22,7 +22,7 @@ class BookmemberAdmin(admin.ModelAdmin):
   list_display = ('phone', 'name', 'account', 'mail', 'begin','expir', 'deposit', 'remain', 'handler', 'remark',)
 
 class ConsumeAdmin(admin.ModelAdmin):
-  list_display = ('phone', 'consumetime', 'money', 'handler', 'over', 'deposit', 'sort', 'remark',)
+  list_display = ('phone', 'consumetime', 'money', 'handler', 'over', 'sort', 'remark',)
 
 class InoutrecordAdmin(admin.ModelAdmin):
   list_display = ('inoutnumber', 'phone', 'outtime', 'intime', 'name', 'sn', 'handlerout', 'handlerin', 'remark',)

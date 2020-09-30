@@ -285,12 +285,8 @@ def deal_new(request):
       remiannow = int(member[0]['remain']) - int(money)
       sort = "消费"
 
-    if sort == "hy":
-      remiannow = int(member[0]['remain'])
-      sort = "会员"
-
-    Bookmember.objects.filter(phone=phone).update(remain=str(remiannow))
-    consume = Consume(phone=phone, money=money, sort=sort, over=str(remiannow), handler=handler, remark=remark)
+    Bookmember.objects.filter(phone=phone).update(remain=remiannow)
+    consume = Consume(phone=phone, money=money, sort=sort, over=remiannow, handler=handler, remark=remark)
     consume.save()
 
     return render(request, 'bookinfor/consume/deal_new_ok.html')
