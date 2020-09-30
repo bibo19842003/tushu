@@ -25,7 +25,7 @@ class ConsumeAdmin(admin.ModelAdmin):
   list_display = ('phone', 'consumetime', 'money', 'handler', 'over', 'deposit', 'sort', 'remark',)
 
 class InoutrecordAdmin(admin.ModelAdmin):
-  list_display = ('phone', 'outtime', 'intime', 'name', 'sn', 'handlerout', 'handlerin', 'remark',)
+  list_display = ('inoutnumber', 'phone', 'outtime', 'intime', 'name', 'sn', 'handlerout', 'handlerin', 'remark',)
 
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Bookseries, BookseriesAdmin)

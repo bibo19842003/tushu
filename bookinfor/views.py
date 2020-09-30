@@ -366,8 +366,9 @@ def inout_out_new(request):
     outtime = request.POST.get('outtime')
     handlerout =str(request.user)
     remark = request.POST.get('remark')
+    inoutnumber = request.POST.get('inoutnumber')
 
-    inout = Inoutrecord(phone=phone, name=name, sn=sn, outtime=outtime, handlerout=handlerout, remark=remark)
+    inout = Inoutrecord(inoutnumber=inoutnumber, phone=phone, name=name, sn=sn, outtime=outtime, handlerout=handlerout, remark=remark)
     inout.save()
 
     book_status = "已借出"
@@ -405,13 +406,12 @@ def inout_in_new(request):
 @login_required
 def inout_modify(request):
 
-  if request.GET.get('phone') == None:
+  if request.GET.get('inoutnumber') == None:
       return render(request, 'bookinfor/inoutrecord/inout_manage.html')
 
   if "cx" in request.GET:
-    phone = request.GET.get('phone')
-    name = request.GET.get('name')
-    inout = Inoutrecord.objects.filter(phone__icontains=phone).filter(name__icontains=name)
+    inoutnumber = request.GET.get('inoutnumber')
+    inout = Inoutrecord.objects.filter(inoutnumber=inoutnumber)
 
     return render(request, 'bookinfor/inoutrecord/inout_modify.html', {'inout': inout,})
 
@@ -421,10 +421,11 @@ def inout_modify(request):
     remark = request.GET.get('remark')
     phone = request.GET.get('phone')
     name = request.GET.get('name')
+    inoutnumber = request.GET.get('inoutnumber')
 
-    Inoutrecord.objects.filter(phone=phone).filter(name=name).update(handlerin=handlerin, intime=intime, remark=remark)
+    Inoutrecord.objects.filter(inoutnumber=inoutnumber).update(handlerin=handlerin, intime=intime, remark=remark)
 
-    inout = Inoutrecord.objects.filter(phone=phone).filter(name=name)
+    inout = Inoutrecord.objects.filter(inoutnumber=inoutnumber)
 
     inoutlogfile(handlerin, phone, name, intime, remark)
 

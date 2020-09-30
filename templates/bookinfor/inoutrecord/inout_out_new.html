@@ -143,6 +143,8 @@
                var status=$(this).children('td').eq(3).text();
                var phone = $('#search').val();
                var remark = $('#remark').val();
+               var mydate = new Date();
+               var inoutnumber = mydate.getMilliseconds();
 
                $.ajaxSetup({
                    data:{csrfmiddlewaretoken:'{{ csrf_token }}'},
@@ -155,6 +157,7 @@
                          "name":bookname,
                          "sn":sn,
                          "remark":remark,
+                         "inoutnumber":inoutnumber,
                          "csrfmiddlewaretoken":$("[name=‘csrfmiddlewaretoken‘]").val()
                          },
 

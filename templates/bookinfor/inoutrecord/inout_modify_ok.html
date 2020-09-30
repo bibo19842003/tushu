@@ -1,63 +1,77 @@
 {% extends 'base.html' %}
-{% block member_new_block %}<li class="active">{% endblock %}
-{% block head_block %}Member Modify Successful{% endblock %}
+{% block inout_out_new_block %}<li class="active">{% endblock %}
+{% block head_block %}In and Out Modify Successful!!!{% endblock %}
 
 {% block body_block %}
 
-{% for member in member %}
+{% for inout in inout %}
 
 <form class="form-horizontal" role="form" action="" method="get">
 
-  <h1><font color="green">已更新</font></h1>
+  <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">单号</label>
+      <div class="col-sm-3">
+         <input type="text" class="form-control" name="inoutnumber" value="{{ inout.inoutnumber }}" readonly="readonly">
+      </div>
+   </div>
 
   <div class="form-group">
       <label for="phone" class="col-sm-2 control-label">电话</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="phone" value="{{ member.phone }}" placeholder="必须填写手机号，如 13912345678" readonly="readonly">
+         <input type="text" class="form-control" name="phone" value="{{ inout.phone }}" readonly="readonly">
       </div>
    </div>
 
    <div class="form-group">
-      <label for="membername" class="col-sm-2 control-label">姓名</label>
+      <label for="name" class="col-sm-2 control-label">书名</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="membername" value="{{ member.name }}" placeholder="张三">
+         <input type="text" class="form-control" name="name" value="{{ inout.name }}" readonly="readonly">
       </div>
    </div>
 
    <div class="form-group">
-      <label for="account" class="col-sm-2 control-label">社交帐号</label>
+      <label for="sn" class="col-sm-2 control-label">SN</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="account" value="{{ member.account }}" placeholder="wx_123456">
-      </div>
-   </div>
-
-   <div class="form-group">
-      <label for="mail" class="col-sm-2 control-label">邮箱</label>
-      <div class="col-sm-3">
-         <input type="text" class="form-control" name="mail" value="{{ member.mail }}" placeholder="tushu@163.com">
+         <input type="text" class="form-control" name="sn" value="{{ inout.sn }}" readonly="readonly">
       </div>
    </div>
 
   <div class="form-group">
-      <label for="expir" class="col-sm-2 control-label">到期时间</label>
+      <label for="outtime" class="col-sm-2 control-label">借出时间</label>
       <div class="col-sm-3">
-         <input type="date" name="expir" value="{{ member.expir |date:'Y-m-d' }}"/>
+         <input type="date" name="outtime" value="{{ inout.outtime |date:'Y-m-d' }}" readonly="readonly"/>
       </div>
    </div>
 
    <div class="form-group">
-      <label for="card" class="col-sm-2 control-label">会员卡号</label>
+      <label for="handlerout" class="col-sm-2 control-label">借出人</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="card" value="{{ member.card }}" placeholder="0001">
+         <input type="text" class="form-control" name="handlerout" value="{{ inout.handlerout }}" readonly="readonly">
+      </div>
+   </div>
+
+  <div class="form-group">
+      <label for="intime" class="col-sm-2 control-label">归还时间</label>
+      <div class="col-sm-3">
+         <input type="date" name="intime"/>
       </div>
    </div>
 
    <div class="form-group">
       <label for="remark" class="col-sm-2 control-label">备注</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="remark" value="{{ member.remark }}" placeholder="备注">
+         <input type="text" class="form-control" name="remark" value="{{ inout.remark }}" placeholder="备注">
       </div>
    </div>
+
+   <hr class="hr" />
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <input id="waiting" type="submit" class="btn btn-default" value="更新" data-loading-text="更新中......" name="gx">
+      <input id="yc" type="submit" class="btn btn-default" value="yinchang" style="VISIBILITY: hidden" name="cx">
+    </div>
+  </div>
 
 </form>
 

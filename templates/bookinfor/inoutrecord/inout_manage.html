@@ -40,6 +40,7 @@
     <thead>
     <tr>
       <th>序号</th>
+      <th>单号</th>
       <th>电话</th>
       <th>书名</th>
       <th>SN</th>
@@ -56,9 +57,10 @@
       {% for inout in inout %}
       <tr class="info">
         <td>{{ forloop.counter }}</td>
-        <td id="phonex" >
-             <a href="/inout_modify/?phone={{ inout.phone }}&name={{ inout.name }}&cx=yinchang" target="_blank">{{ inout.phone }}</a>
+        <td id="inoutnumberx" >
+             <a href="/inout_modify/?inoutnumber={{ inout.inoutnumber }}&cx=yinchang" target="_blank">{{ inout.inoutnumber }}</a>
         </td>
+        <td id="namex">{{ inout.phone }}</td>
         <td id="namex">{{ inout.name }}</td>
         <td id="snx">{{ inout.sn }}</td>
         <td id="outtimex">{{ inout.outtime }}</td>

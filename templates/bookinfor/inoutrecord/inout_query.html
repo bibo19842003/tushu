@@ -30,6 +30,7 @@
     <thead>
     <tr>
       <th>序号</th>
+      <th>单号</th>
       <th>电话</th>
       <th>书名</th>
       <th>SN</th>
@@ -46,6 +47,7 @@
       {% for inout in inout %}
       <tr class="info">
         <td>{{ forloop.counter }}</td>
+        <td>{{ inout.inoutnumber }}</td>
         <td>{{ inout.phone }}</td>
         <td>{{ inout.name }}</td>
         <td>{{ inout.sn }}</td>

@@ -104,6 +104,7 @@ class Consume(models.Model):
 
 
 class Inoutrecord(models.Model):
+  inoutnumber = models.CharField(max_length=20, verbose_name='单号')
   phone = models.CharField(max_length=20, verbose_name='电话')
   outtime = models.DateTimeField(null=True, blank=True, verbose_name='借出时间', auto_now_add = True)
   intime = models.DateTimeField(null=True, blank=True, verbose_name='归还时间')
