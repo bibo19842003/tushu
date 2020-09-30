@@ -13,34 +13,30 @@
 
   <div class="form-group">
       <label for="phone" class="col-sm-2 control-label">电话</label>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
          <input id="search" type="text" class="form-control" name="search" placeholder="必须填写手机号，如 13912345678" autocomplete="off">
       </div>
    </div>
 
    <div class="form-group">
       <label for="name" class="col-sm-2 control-label">书名</label>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
          <input id="searchbook" type="text" class="form-control" name="searchbook" placeholder="请输入要搜索的书名" autocomplete="off">
          </br>
          <input id="addTable" type="button" class="btn btn-success" value="Add Book">
          <input id="deleteTable" type="button" class="btn btn-danger" value="Del Book">
 
          </br>
+         </br>
 <div class="table-responsive">
-         <table class="table table-condensed table-striped table-hover">
-           <thead>
+         <table id="booktable" class="table table-condensed table-striped table-hover">
              <tr>
                <th></th>
                <th>SN</th>
                <th>书名</th>
                <th>状态</th>
              </tr>
-           </thead>
-           <tbody>
 
-             <table id="booktable"></table>
-           </tbody>
 
         </table>
 </div>
@@ -51,7 +47,7 @@
 
    <div class="form-group">
       <label for="remark" class="col-sm-2 control-label">备注</label>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
          <input id="remark" type="text" class="form-control" name="remark" placeholder="备注">
       </div>
    </div>
@@ -59,7 +55,7 @@
    <hr class="hr" />
 
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-3">
+    <div class="col-sm-offset-2 col-sm-4">
       <input id="inoutrecord" type="submit" class="btn btn-default" value="提交" data-loading-text="提交中......">
       <input id="printtable" type="submit" class="btn btn-default" value="显示">
     </div>
