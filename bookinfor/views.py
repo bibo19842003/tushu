@@ -271,7 +271,6 @@ def deal_new(request):
     sort = request.POST.get('sort')
     over = request.POST.get('over')
     handler =str(request.user)
-    deposit = request.POST.get('deposit')
     remark = request.POST.get('remark')
 
     member = Bookmember.objects.values("remain").filter(phone=phone)
@@ -288,7 +287,7 @@ def deal_new(request):
       sort = "会员"
 
     Bookmember.objects.filter(phone=phone).update(remain=str(remiannow))
-    consume = Consume(phone=phone, money=money, sort=sort, over=str(remiannow), handler=handler, deposit=deposit, remark=remark)
+    consume = Consume(phone=phone, money=money, sort=sort, over=str(remiannow), handler=handler, remark=remark)
     consume.save()
 
     return render(request, 'bookinfor/consume/deal_new_ok.html')
