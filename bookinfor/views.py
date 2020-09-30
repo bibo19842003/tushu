@@ -371,6 +371,9 @@ def inout_out_new(request):
     inout = Inoutrecord(phone=phone, name=name, sn=sn, outtime=outtime, handlerout=handlerout, remark=remark)
     inout.save()
 
+    book_status = "已借出"
+    Bookinfor.objects.filter(sn=sn).update(book_status=book_status)
+
     return render(request, 'bookinfor/inoutrecord/inout_out_new_ok.html')
 
 
@@ -390,6 +393,9 @@ def inout_in_new(request):
     name = request.POST.get('name')
 
     Inoutrecord.objects.filter(sn=sn).update(handlerin=handlerin, intime=intime, remark=remark)
+
+    book_status = "未借出"
+    Bookinfor.objects.filter(sn=sn).update(book_status=book_status)
 
     inoutlogfile(handlerin, sn, name, intime, remark)
 
