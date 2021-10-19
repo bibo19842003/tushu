@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Author, Sort, Publish, Bookinfor
+from .models import Author, Sort, Publish, Bookinfor, Bookmember, Consume, Inoutrecord
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -23,6 +23,21 @@ class BookinforSerializer(serializers.ModelSerializer):
 #    author_text = serializers.HyperlinkedIdentityField(view_name="article:detail")
     class Meta:
         model = Bookinfor
+        fields = '__all__'
+
+class BookmemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmember
+        fields = '__all__'
+
+class ConsumeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Consume
+        fields = '__all__'
+
+class InoutrecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inoutrecord
         fields = '__all__'
 
 

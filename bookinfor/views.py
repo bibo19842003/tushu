@@ -16,7 +16,7 @@ from django.http import JsonResponse
 
 from rest_framework.viewsets import ModelViewSet
 from .permissions import IsAdminUserOrReadOnly
-from .serializers import AuthorSerializer, SortSerializer, PublishSerializer, BookinforSerializer
+from .serializers import AuthorSerializer, SortSerializer, PublishSerializer, BookinforSerializer, BookmemberSerializer, ConsumeSerializer, InoutrecordSerializer
 
 
 class AuthorViewSet(ModelViewSet):
@@ -39,6 +39,20 @@ class BookinforViewSet(ModelViewSet):
     serializer_class = BookinforSerializer
     permission_classes = [IsAdminUserOrReadOnly]
 
+class BookmemberViewSet(ModelViewSet):
+    queryset = Bookmember.objects.all()
+    serializer_class = BookmemberSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
+
+class ConsumeViewSet(ModelViewSet):
+    queryset = Consume.objects.all()
+    serializer_class = ConsumeSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
+
+class InoutrecordViewSet(ModelViewSet):
+    queryset = Inoutrecord.objects.all()
+    serializer_class = ConsumeSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 
 # --- index begin ---
 

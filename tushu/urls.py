@@ -22,7 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from rest_framework.routers import DefaultRouter
-from bookinfor.views import AuthorViewSet, SortViewSet, PublishViewSet, BookinforViewSet
+from bookinfor.views import AuthorViewSet, SortViewSet, PublishViewSet, BookinforViewSet, BookmemberViewSet, ConsumeViewSet, InoutrecordViewSet
 
 
 router = DefaultRouter()
@@ -30,6 +30,9 @@ router.register(r'author', AuthorViewSet)
 router.register(r'sort', SortViewSet)
 router.register(r'publish', PublishViewSet)
 router.register(r'bookinfor', BookinforViewSet)
+router.register(r'bookmember', BookmemberViewSet)
+router.register(r'consume', ConsumeViewSet)
+router.register(r'inoutrecord', InoutrecordViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
