@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import RequestContext, loader, Context
 from django.contrib.auth.decorators import login_required
-from bookinfor.models import Bookinfor, Consume, Bookmember, Inoutrecord, Author, Publish
+from bookinfor.models import Bookinfor, Consume, Bookmember, Inoutrecord, Author, Publish, Sort
 import time
 import os
 import urllib.request
@@ -13,6 +13,31 @@ import sys
 import urllib.error
 import json
 from django.http import JsonResponse
+
+from rest_framework.viewsets import ModelViewSet
+from .permissions import IsAdminUserOrReadOnly
+from .serializers import AuthorSerializer, SortSerializer, PublishSerializer, BookinforSerializer
+
+
+class AuthorViewSet(ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
+
+class SortViewSet(ModelViewSet):
+    queryset = Sort.objects.all()
+    serializer_class = SortSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
+
+class PublishViewSet(ModelViewSet):
+    queryset = Publish.objects.all()
+    serializer_class = PublishSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
+
+class BookinforViewSet(ModelViewSet):
+    queryset = Bookinfor.objects.all()
+    serializer_class = BookinforSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 
 
 # --- index begin ---

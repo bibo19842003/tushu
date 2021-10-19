@@ -21,12 +21,24 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework.routers import DefaultRouter
+from bookinfor.views import AuthorViewSet, SortViewSet, PublishViewSet, BookinforViewSet
+
+
+router = DefaultRouter()
+router.register(r'author', AuthorViewSet)
+router.register(r'sort', SortViewSet)
+router.register(r'publish', PublishViewSet)
+router.register(r'bookinfor', BookinforViewSet)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='admin/login.html')),
     path('accounts/logout/', auth_views.LogoutView.as_view()),
     path('', include('bookinfor.urls')),
 
+    # drf 自动注册路由
+    path('api/', include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
